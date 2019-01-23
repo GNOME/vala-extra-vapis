@@ -141,7 +141,7 @@ namespace Gsasl {
 
 		public Gsasl.Result client_mechlist (out string mechlist);
 		public Gsasl.Result client_support_p (string name);
-		public unowned string client_suggest_mechanism (string mechlist);
+		public unowned string? client_suggest_mechanism (string mechlist);
 
 		public Gsasl.Result server_mechlist (out string mechlist);
 		public Gsasl.Result server_support_p (string name);
