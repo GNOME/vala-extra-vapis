@@ -47,7 +47,7 @@ namespace AMQP {
     public uint8[] bytes;
 
     [CCode (cname = "amqp_empty_bytes")]
-    public static const AMQP.Bytes EMPTY;
+    public const AMQP.Bytes EMPTY;
   }
 
   [SimpleType, CCode (cname = "amqp_decimal_t")]
@@ -68,7 +68,7 @@ namespace AMQP {
     public int encode (AMQP.Bytes encoded, ref size_t offset);
 
     [CCode (cname = "amqp_empty_table")]
-    public static const AMQP.Table EMPTY;
+    public const AMQP.Table EMPTY;
   }
 
   [CCode (cname = "amqp_array_t")]
@@ -77,7 +77,7 @@ namespace AMQP {
     public AMQP.FieldValue[] entries;
 
     [CCode (cname = "amqp_empty_array")]
-    public static const AMQP.Array EMPTY;
+    public const AMQP.Array EMPTY;
   }
 
   [CCode (cname = "amqp_field_value_t")]
