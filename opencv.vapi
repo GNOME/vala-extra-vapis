@@ -427,7 +427,7 @@ namespace OpenCV {
 		public int line_type;
 	}
 
-	[Compact, CCode (cname = "CvHaarClassifierCascade", has_free_function = false)]
+	[Compact, CCode (cname = "CvHaarClassifierCascade", free_function = "")]
 	public class HaarClassifierCascade {
 		[CCode (cname = "cvLoad", type = "void*")]
 		public static unowned HaarClassifierCascade? load (string filename, OpenCV.Memory.Storage storage, string? name = null, out string? real_name = null);
