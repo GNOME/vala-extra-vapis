@@ -45,7 +45,7 @@ namespace SDL {
 		public static void dxgi_get_output_info (int display_index, out int adapter_index, out int output_index);
 	}// Direct3D9
 
-	[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader = "SDL2/SDL_system.h")]
+	[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader_filename = "SDL2/SDL_system.h")]
 	public delegate void WindowsMessageHook (void* hWnd, uint message, uint64 w_param, int64 l_param);
 
 	[CCode (cname = "SDL_SetWindowsMessageHook", cheader_filename = "SDL2/SDL_system.h") ]
