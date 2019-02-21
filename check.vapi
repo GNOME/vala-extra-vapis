@@ -22,9 +22,8 @@ namespace Check {
   /**
    * Type for a test case
    *
-   * A TCase represents a test case.  Create with tcase_create, free
-   * with tcase_free.  For the moment, test cases can only be run
-   * through a suite
+   * A TCase represents a test case. For the moment, test cases
+   * can only be run through a suite
    */
   [Compact]
   [CCode (cname = "TCase", cprefix="tcase_", free_function = "", cheader_filename = "check.h")]
@@ -32,9 +31,9 @@ namespace Check {
     /**
      * Create a test case.
      *
-     * Once created, tests can be added with the tcase_add_test()
-     * function, and the test case assigned to a suite with the
-     * suite_add_tcase() function.
+     * Once created, tests can be added with the {@link TCase.add_test}
+     * method, and the test case assigned to a suite with the
+     * {@link Suite.add_tcase} method.
      *
      * @param name name of the test case
      *
@@ -48,7 +47,6 @@ namespace Check {
     /**
      * Add a test function to a test case
      *
-     * @param tc test case to add test to
      * @param tf test function to add to test case
      *
      * @since 0.6.0
@@ -61,7 +59,6 @@ namespace Check {
      *
      * The added test is expected to terminate by throwing the given signal
      *
-     * @param tc test case to add test to
      * @param tf test function to add to test case
      * @param signal expected signal for test function to throw in order for
      *                the test to be considered passing
@@ -76,7 +73,6 @@ namespace Check {
      *
      * The added test is expected to terminate by exiting with the given value
      *
-     * @param tc test case to add test to
      * @param tf test function to add to test case
      * @param expected_exit_value exit value for test function to return in
      *                             order for the test to be considered passing
@@ -93,7 +89,6 @@ namespace Check {
      * iteration being executed in a new context. The loop variable 'i' is
      * available in the test.
      *
-     * @param tc test case to add test to
      * @param tf function to add to test case
      * @param s starting index for value "i" in test
      * @param e ending index for value "i" in test
@@ -112,7 +107,6 @@ namespace Check {
      *
      * The added test is expected to terminate by throwing the given signal
      *
-     * @param tc test case to add test to
      * @param tf function to add to test case
      * @param signal expected signal for test function to throw in order for
      *                the test to be considered passing
@@ -133,7 +127,6 @@ namespace Check {
      *
      * The added test is expected to terminate by exiting with the given value
      *
-     * @param tc test case to add test to
      * @param tf function to add to test case
      * @param expected_exit_value exit value for test function to return in
      *                             order for the test to be considered passing
@@ -145,9 +138,14 @@ namespace Check {
     [Version (since = "0.9.7")]
     public void add_loop_exit_test (TFun tf, int expected_exit_value, int s, int e);
 
-    /* Add a test function to a test case
-      (function version -- use this when the macro won't work
-    */
+    /**
+     * Add a test function to a test case
+     * @param tf function to add to test case
+     * @param allowed_exit_value exit value for test function to return in
+     *                           order for the test to be considered passing
+     * @param start starting index for value "i" in test
+     * @param end ending index for value "i" in test
+     */
     [CCode (cname = "_tcase_add_test")]
     public void add_test_full (TFun tf, string fname, int signal, int allowed_exit_value, int start, int end);
 
@@ -169,7 +167,6 @@ namespace Check {
      * If a teardown function fails the remaining teardown functins will be
      * omitted.
      *
-     * @param tc test case to add unchecked fixture setup/teardown to
      * @param setup function to add to be executed before the test case;
      *               if NULL no setup function is added
      * @param teardown function to add to be executed after the test case;
@@ -197,7 +194,6 @@ namespace Check {
      * teardown function fails the remaining teardown functins will be
      * omitted.
      *
-     * @param tc test case to add checked fixture setup/teardown to
      * @param setup function to add to be executed before each unit test in
      *               the test case;  if NULL no setup function is added
      * @param teardown function to add to be executed after each unit test in
@@ -221,7 +217,6 @@ namespace Check {
      * If Check is compile without fork() support this call is ignored,
      * as timeouts are not possible.
      *
-     * @param tc test case to assign timeout to
      * @param timeout to use, in seconds. If the value contains a decimal
      *                 portion, but no high resolution timer is available,
      *                 the value is rounded up to the nearest second.
@@ -242,9 +237,9 @@ namespace Check {
      * Creates a test suite with the given name.
      *
      * Create a suite, which will contain test cases. Once
-     * created, use suite_add_tcase() to add test cases.
+     * created, use {@link Suite.add_tcase} to add test cases.
      * When finished, create a suite runner from the
-     * suite using srunner_create()
+     * suite using {@link SRunner.SRunner}
      *
      * @param name name of the suite
      *
@@ -255,24 +250,29 @@ namespace Check {
     [CCode (cname="suite_create")]
     [Version (since = "0.6.0")]
     public Suite (string name);
+
+    [CCode (cname="suite_tcase")]
+    private int _tcase (string tcname);
     /**
      * Determines whether a given test suite contains a case named after a
      * given string.
      *
-     * @param s suite to check
      * @param tcname test case to look for
      *
-     * @return 1 iff the given test case is within the given suite;
-     *          0 otherwise
+     * @return true if the given test case is within the given suite;
+     *          false otherwise
      *
      * @since 0.9.9
      */
     [Version (since = "0.9.9")]
-    public int tcase (string tcname);
+    [CCode (cname="vala_check_suite_tcase")]
+    public bool tcase (string tcname) {
+      return _tcase (tcname) == 1;
+    }
+
     /**
      * Add a test case to a suite
      *
-     * @param s suite to add test case to
      * @param tc test case to add to suite
      *
      * @since 0.6.0
@@ -284,9 +284,9 @@ namespace Check {
   /**
    * Fail the test if expression is false
    *
-   * @param expr expression to evaluate
+   * Note that if the check fails, the remaining of the test is aborted
    *
-   * @note If the check fails, the remaining of the test is aborted
+   * @param expr expression to evaluate
    *
    * @since 0.9.6
    */
@@ -296,10 +296,10 @@ namespace Check {
   /**
    * Fail the test if the expression is false; print message on failure
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param expr expression to evaluate
    * @param ... message to print (in printf format) if expression is false
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.6
    */
@@ -310,7 +310,7 @@ namespace Check {
   /**
    * Unconditionally fail the test
    *
-   * @note Once called, the remaining of the test is aborted
+   * Note that once called, the remaining of the test is aborted
    *
    * @since 0.9.6
    */
@@ -320,9 +320,9 @@ namespace Check {
   /**
    * Unconditionally fail the test; print a message
    *
-   * @param ... message to print (in printf format)
+   * Note that once called, the remaining of the test is aborted
    *
-   * @note Once called, the remaining of the test is aborted
+   * @param ... message to print (in printf format)
    *
    * @since 0.9.6
    */
@@ -335,10 +335,10 @@ namespace Check {
    *
    * If not X==Y, the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X signed integer
    * @param Y signed integer to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.6
    */
@@ -350,10 +350,10 @@ namespace Check {
    *
    * If not X!=Y, the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X signed integer
    * @param Y signed integer to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.6
    */
@@ -363,12 +363,12 @@ namespace Check {
   /**
    * Check two signed integers to determine if X<Y
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * If not X<Y, the test fails.
    *
    * @param X signed integer
    * @param Y signed integer to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -380,10 +380,10 @@ namespace Check {
    *
    * If not X<=Y, the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X signed integer
    * @param Y signed integer to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -395,10 +395,10 @@ namespace Check {
    *
    * If not X>Y, the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X signed integer
    * @param Y signed integer to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -410,10 +410,10 @@ namespace Check {
    *
    * If not X>=Y, the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X signed integer
    * @param Y signed integer to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -425,10 +425,10 @@ namespace Check {
    *
    * If not X==Y, the test fails.
    *
-   * @param X signed integer
-   * @param Y signed integer to compare against X
+   * Note that if the check fails, the remaining of the test is aborted
    *
-   * @note If the check fails, the remaining of the test is aborted
+   * @param X unsigned signed integer
+   * @param Y unsigned signed integer to compare against X
    *
    * @since 0.9.10
    */
@@ -440,10 +440,10 @@ namespace Check {
    *
    * If not X!=Y, the test fails.
    *
-   * @param X signed integer
-   * @param Y signed integer to compare against X
+   * Note that if the check fails, the remaining of the test is aborted
    *
-   * @note If the check fails, the remaining of the test is aborted
+   * @param X unsigned signed integer
+   * @param Y unsigned signed integer to compare against X
    *
    * @since 0.9.10
    */
@@ -455,10 +455,10 @@ namespace Check {
    *
    * If not X<Y, the test fails.
    *
-   * @param X signed integer
-   * @param Y signed integer to compare against X
+   * Note that if the check fails, the remaining of the test is aborted
    *
-   * @note If the check fails, the remaining of the test is aborted
+   * @param X unsigned signed integer
+   * @param Y unsigned signed integer to compare against X
    *
    * @since 0.9.10
    */
@@ -470,10 +470,10 @@ namespace Check {
    *
    * If not X<=Y, the test fails.
    *
-   * @param X signed integer
-   * @param Y signed integer to compare against X
+   * Note that if the check fails, the remaining of the test is aborted
    *
-   * @note If the check fails, the remaining of the test is aborted
+   * @param X unsigned signed integer
+   * @param Y unsigned signed integer to compare against X
    *
    * @since 0.9.10
    */
@@ -485,10 +485,10 @@ namespace Check {
    *
    * If not X>Y, the test fails.
    *
-   * @param X signed integer
-   * @param Y signed integer to compare against X
+   * Note that if the check fails, the remaining of the test is aborted
    *
-   * @note If the check fails, the remaining of the test is aborted
+   * @param X unsigned signed integer
+   * @param Y unsigned signed integer to compare against X
    *
    * @since 0.9.10
    */
@@ -500,10 +500,10 @@ namespace Check {
    *
    * If not X>=Y, the test fails.
    *
-   * @param X signed integer
-   * @param Y signed integer to compare against X
+   * Note that if the check fails, the remaining of the test is aborted
    *
-   * @note If the check fails, the remaining of the test is aborted
+   * @param X unsigned signed integer
+   * @param Y unsigned signed integer to compare against X
    *
    * @since 0.9.10
    */
@@ -515,10 +515,10 @@ namespace Check {
    *
    * If not 0==strcmp(X,Y), the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X string
    * @param Y string to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.6
    */
@@ -530,10 +530,10 @@ namespace Check {
    *
    * If not 0!=strcmp(X,Y), the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X string
    * @param Y string to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.6
    */
@@ -545,10 +545,10 @@ namespace Check {
    *
    * If not 0<strcmp(X,Y), the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X string
    * @param Y string to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -560,10 +560,10 @@ namespace Check {
    *
    * If not 0<=strcmp(X,Y), the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X string
    * @param Y string to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -575,10 +575,10 @@ namespace Check {
    *
    * If not 0<strcmp(X,Y), the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X string
    * @param Y string to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -590,10 +590,10 @@ namespace Check {
    *
    * If not 0>=strcmp(X,Y), the test fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X string
    * @param Y string to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -606,10 +606,10 @@ namespace Check {
    * If the two passed pointers are not equal, the test
    * fails.
    *
+   * Note that if the check fails, the remaining of the test is aborted
+   *
    * @param X pointer
    * @param Y pointer to compare against X
-   *
-   * @note If the check fails, the remaining of the test is aborted
    *
    * @since 0.9.10
    */
@@ -620,6 +620,8 @@ namespace Check {
    * Check if two pointers are not.
    *
    * If the two passed pointers are equal, the test fails.
+   *
+   * Note that if the check fails, the remaining of the test is aborted
    *
    * @param X pointer
    * @param Y pointer to compare against X
@@ -633,8 +635,8 @@ namespace Check {
    * Mark the last point reached in a unit test.
    *
    * If the test throws a signal or exits, the location noted with the
-   * failure is the last location of a ck_assert*() or ck_abort() call.
-   * Use mark_point() to record intermediate locations (useful for tracking down
+   * failure is the last location of a {@link assert*} or {@link abort} call.
+   * Use {@link mark_point} to record intermediate locations (useful for tracking down
    * crashes or exits).
    *
    * @since 0.6.0
@@ -686,9 +688,8 @@ namespace Check {
      * Creates a suite runner for the given suite.
      *
      * Once created, additional suites can be added to the
-     * suite runner using srunner_add_suite(), and the suite runner can be
-     * run with srunner_run_all(). Once finished, the suite runner
-     * must be freed with srunner_free().
+     * suite runner using {@link SRunner.add_suite}, and the suite runner can be
+     * run with {@link SRunner.run_all}.
      *
      * @param s suite to generate a suite runner for
      *
@@ -703,10 +704,9 @@ namespace Check {
     /**
      * Add an additional suite to a suite runner.
      *
-     * The first suite in a suite runner is always added in srunner_create().
+     * The first suite in a suite runner is always added in {@link SRunner.SRunner}.
      * This call adds additional suites to a suite runner.
      *
-     * @param sr suite runner to add the given suite
      * @param s suite to add to the given suite runner
      *
      * @since 0.7.0
@@ -724,7 +724,6 @@ namespace Check {
      * Note that if the CK_RUN_CASE and/or CK_RUN_SUITE environment variables
      * are defined, then only the named suite and/or test case is run.
      *
-     * @param sr suite runner to run all suites from
      * @param print_mode the verbosity in which to report results to stdout
      *
      * @since 0.6.0
@@ -740,7 +739,6 @@ namespace Check {
      * suite runner has been configured to output to a log, that is also
      * performed.
      *
-     * @param sr suite runner where the given suite or test case must be
      * @param sname suite name to run. A NULL means "any suite".
      * @param tcname test case name to run. A NULL means "any test case"
      * @param print_mode the verbosity in which to report results to stdout
@@ -755,8 +753,6 @@ namespace Check {
      *
      * This value represents both test failures and errors.
      *
-     * @param sr suite runner to query for all failed tests
-     *
      * @return number of test failures and errors found by the suite runner
      *
      * @since 0.6.1
@@ -766,8 +762,6 @@ namespace Check {
 
     /**
      * Retrieve the total number of tests run by a suite runner.
-     *
-     * @param sr suite runner to query for all tests run
      *
      * @return number of all tests run by the suite runner
      *
@@ -779,48 +773,39 @@ namespace Check {
     /**
      * Return an array of results for all failures found by a suite runner.
      *
-     * Number of results is equal to srunner_nfailed_tests().
+     * Number of results is equal to {@link SRunner.nfailed_tests}.
      *
      * Information about individual results can be queried using:
-     * tr_rtype(), tr_ctx(), tr_msg(), tr_lno(), tr_lfile(), and tr_tcname().
-     *
-     * Memory is malloc'ed and must be freed; however free the entire structure
-     * instead of individual test cases.
-     *
-     * @param sr suite runner to retrieve results from
+     * {@link TestResult.rtype}, {@link TestResult.ctx}, {@link TestResult.msg},
+     * {@link TestResult.lno}, {@link TestResult.lfile}, and {@link TestResult.tcname}.
      *
      * @return array of TestResult objects
      *
      * @since 0.6.0
      */
     [Version (since = "0.6.0")]
-    public Check.TestResult[] failures ();
+    public (unowned Check.TestResult)[] failures ();
 
     /**
      * Return an array of results for all tests run by a suite runner.
      *
-     * Number of results is equal to srunner_ntests_run(), and excludes
+     * Number of results is equal to {@link SRunner.ntests_run}, and excludes
      * failures due to setup function failure.
      *
      * Information about individual results can be queried using:
-     * tr_rtype(), tr_ctx(), tr_msg(), tr_lno(), tr_lfile(), and tr_tcname().
-     *
-     * Memory is malloc'ed and must be freed; however free the entire structure
-     * instead of individual test cases.
-     *
-     * @param sr suite runner to retrieve results from
+     * {@link TestResult.rtype}, {@link TestResult.ctx}, {@link TestResult.msg},
+     * {@link TestResult.lno}, {@link TestResult.lfile}, and {@link TestResult.tcname}.
      *
      * @return array of TestResult objects
      *
      * @since 0.6.1
     */
     [Version (since = "0.6.1")]
-    public Check.TestResult[] results ();
+    public (unowned Check.TestResult)[] results ();
 
     /**
      * Print the results contained in an SRunner to stdout.
      *
-     * @param sr suite runner to print results for to stdout
      * @param print_mode the print_output (verbosity) to use to report
      *         the result
      *
@@ -840,7 +825,6 @@ namespace Check {
      * This setting does not conflict with the other log output types;
      * all logging types can occur concurrently if configured.
      *
-     * @param sr suite runner to log results of in log format
      * @param fname file name to output log results to
      *
      * @since 0.7.1
@@ -848,18 +832,16 @@ namespace Check {
     [Version (since = "0.7.1")]
     public void set_log (string fname);
 
+    [CCode (cname = "srunner_has_log")]
+    private int _has_log ();
     /**
      * Checks if the suite runner is assigned a file for log output.
      *
-     * @param sr suite runner to check
-     *
-     * @return 1 iff the suite runner currently is configured to output
-     *         in log format; 0 otherwise
+     * @return true iff the suite runner currently is configured to output
+     *         in log format; false otherwise
      *
      * @since 0.7.1
      */
-    [CCode (cname = "srunner_has_log")]
-    private int _has_log ();
     [Version (since = "0.7.1")]
     [CCode (cname = "vala_check_srunner_has_log")]
     public bool has_log () {
@@ -888,7 +870,6 @@ namespace Check {
      * This setting does not conflict with the other log output types;
      * all logging types can occur concurrently if configured.
      *
-     * @param sr suite runner to log results of in XML format
      * @param fname file name to output XML results to
      *
      * @since 0.9.1
@@ -896,18 +877,16 @@ namespace Check {
     [Version (since = "0.9.1")]
     public void set_xml (string fname);
 
+    [CCode (cname = "srunner_has_xml")]
+    private int _has_xml ();
     /**
      * Checks if the suite runner is assigned a file for XML output.
      *
-     * @param sr suite runner to check
-     *
-     * @return 1 iff the suite runner currently is configured to output
-     *         in XML format; 0 otherwise
+     * @return true iff the suite runner currently is configured to output
+     *         in XML format; false otherwise
      *
      * @since 0.9.1
      */
-    [CCode (cname = "srunner_has_xml")]
-    private int _has_xml ();
     [Version (since = "0.9.1")]
     [CCode (cname = "vala_check_srunner_has_xml")]
     public bool has_xml () {
@@ -936,7 +915,6 @@ namespace Check {
      * This setting does not conflict with the other log output types;
      * all logging types can occur concurrently if configured.
      *
-     * @param sr suite runner to log results of in TAP format
      * @param fname file name to output TAP results to
      *
      * @since 0.9.12
@@ -944,18 +922,16 @@ namespace Check {
     [Version (since = "0.9.12")]
     public void set_tap (string fname);
 
+    [CCode (cname = "srunner_has_tap")]
+    private int _has_tap ();
     /**
      * Checks if the suite runner is assigned a file for TAP output.
      *
-     * @param sr suite runner to check
-     *
-     * @return 1 iff the suite runner currently is configured to output
-     *         in TAP format; 0 otherwise
+     * @return true if the suite runner currently is configured to output
+     *         in TAP format; false otherwise
      *
      * @since 0.9.12
      */
-    [CCode (cname = "srunner_has_tap")]
-    private int _has_tap ();
     [Version (since = "0.9.12")]
     [CCode (cname = "vala_check_srunner_has_tap")]
     public bool has_tap () {
@@ -975,8 +951,6 @@ namespace Check {
 
     /**
      * Retrieve the current fork status for the given suite runner
-     *
-     * @param sr suite runner to check fork status of
      *
      * @since 0.8.0
      */
@@ -998,7 +972,6 @@ namespace Check {
      * If Check is compiled without support for fork(), attempting
      * to set the status to CK_FORK is ignored.
      *
-     * @param sr suite runner to assign the fork status to
      * @param fstat fork status to assign
      *
      * @since 0.8.0
@@ -1019,8 +992,6 @@ namespace Check {
      * This is a member of test_result, and can represent a
      * pass, failure, or error.
      *
-     * @param tr test result to retrieve result from
-     *
      * @return result of given test
      *
      * @since 0.6.0
@@ -1033,8 +1004,6 @@ namespace Check {
      *
      * The types of contents include the test setup, teardown, or the
      * body of the test itself.
-     *
-     * @param tr test result to retrieve context from
      *
      * @return context to which the given test result applies
      *
@@ -1126,7 +1095,7 @@ namespace Check {
   /**
    * Wait for the pid and exit.
    *
-   * This is to be used in conjunction with check_fork(). When called,
+   * This is to be used in conjunction with {@link check_fork}. When called,
    * will wait for the given process to terminate. If the process
    * exited without error, exit(EXIT_SUCCESS) is invoked; otherwise
    * exit(EXIT_FAILURE) is invoked.
@@ -1134,7 +1103,7 @@ namespace Check {
    * If Check is compiled without support for fork(), this invokes
    * exit(EXIT_FAILURE).
    *
-   * @param pid process to wait for, created by check_fork()
+   * @param pid process to wait for, created by {@link check_fork}
    *
    * @since 0.9.3
    */
