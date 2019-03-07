@@ -214,7 +214,7 @@ namespace Check {
 		 * omitted.
 		 *
 		 * @param setup function to add to be executed before each unit test in
-		 * the test case;	if NULL no setup function is added
+		 * the test case; if NULL no setup function is added
 		 * @param teardown function to add to be executed after each unit test in
 		 * the test case; if NULL no teardown function is added
 		 *
@@ -1101,7 +1101,7 @@ namespace Check {
 	 * return -1 and does nothing.
 	 *
 	 * @return On success, the PID of the child process is returned in
-	 * the parent, and 0 is returned in the child.	On failure,
+	 * the parent, and 0 is returned in the child. On failure,
 	 * a value of -1 is returned to the parent process and no
 	 * child process is created.
 	 *
