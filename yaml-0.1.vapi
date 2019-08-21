@@ -5,8 +5,6 @@
 [CCode (cheader_filename = "yaml.h")]
 namespace Yaml {
 
-/***** Version Information *****/
-
 /**
  * Get the library version as a string.
  *
@@ -24,8 +22,6 @@ public static unowned string get_version_string();
  * @param patch Patch version number.
  */
 public static void get_version(out int major, out int minor, out int patch);
-
-/***** Basic Types *****/
 
 /*
  * Not bound: The character type (UTF-8 octet).
@@ -127,8 +123,6 @@ public struct Mark {
   /** The position column. */
   size_t column;
 }
-
-/***** Node Styles *****/
 
 /** Scalar styles. */
 [CCode (cname = "yaml_scalar_style_t", has_type_id = false)]
@@ -263,8 +257,6 @@ public enum TokenType {
   SCALAR
 }
 
-/***** Tokens *****/
-
 /** The token structure. */
 [CCode (cname = "yaml_token_t", destroy_function = "yaml_token_delete", has_type_id = false)]
 public struct Token {
@@ -378,8 +370,6 @@ public enum EventType {
   [CCode (cname = "YAML_MAPPING_END_EVENT")]
   MAPPING_END,
 }
-
-/***** Events *****/
 
 /** The event structure. */
 [CCode (cname = "yaml_event_t", destroy_function = "yaml_event_delete", has_type_id = false)]
@@ -513,9 +503,9 @@ public struct Event {
    * ignored by the emitter.
    *
    * @param event                An empty event object.
-   * @param version_directive    The YAML directive value or ``NULL``.
-   * @param tag_directives_start The beginning of the TAG directives list.
-   * @param tag_directives_end   The end of the TAG directives list.
+   * @param version_directive    The %YAML directive value or ``NULL``.
+   * @param tag_directives_start The beginning of the %TAG directives list.
+   * @param tag_directives_end   The end of the %TAG directives list.
    * @param implicit             If the document start indicator is implicit.
    *
    * @return 1 if the function succeeded, 0 on error.
@@ -624,8 +614,6 @@ public struct Event {
   [CCode (cname = "yaml_mapping_end_event_initialize")]
   public int mapping_end_initialize();
 }
-
-/***** Nodes *****/
 
 namespace Tag {
 
@@ -798,9 +786,9 @@ public struct Document {
    * Create a YAML document.
    *
    * @param document             An empty document object.
-   * @param version_directive    The YAML directive value or ``NULL``.
-   * @param tag_directives_start The beginning of the TAG directives list.
-   * @param tag_directives_end   The end of the TAG directives list.
+   * @param version_directive    The %YAML directive value or ``NULL``.
+   * @param tag_directives_start The beginning of the %TAG directives list.
+   * @param tag_directives_end   The end of the %TAG directives list.
    * @param start_implicit       If the document start indicator is implicit.
    * @param end_implicit         If the document end indicator is implicit.
    *
@@ -903,8 +891,6 @@ public struct Document {
    */
   public int append_mapping_pair(int mapping, int key, int value);
 }
-
-/***** Parser Definitions *****/
 
 /**
  * The prototype of a read handler.
@@ -1347,8 +1333,6 @@ public struct Parser {
   public int load(out Document document);
 }
 
-/***** Emitter Definitions ******/
-
 /**
  * The prototype of a write handler.
  *
@@ -1635,7 +1619,6 @@ public struct Emitter {
   [CCode (cname = "scalar_data.style")]
   ScalarStyle scalar_data_style;
 
-  /***** Dumper stuff *****/
 
   /** If the stream was already opened? */
   int opened;
