@@ -219,6 +219,8 @@ namespace Sensors {
             n = snprintf(bigbuf);
             if (n < 0 ) return null;
             if (n <= bigbuf.length) return (string)bigbuf;
+
+            return null;
         }
     }
 
