@@ -103,13 +103,13 @@ namespace Xcb {
 			public VoidCookie vala_set_cursor_name_checked (Xcb.Cursor cursor, uint16 nbytes, string name);
 			[CCode (cname = "vala_xcb_xfixes_set_cursor_name_checked")]
 			public VoidCookie set_cursor_name_checked (Xcb.Cursor cursor, string name) {
-				this.vala_set_cursor_name_checked (cursor, (uint16) name.length, name);
+				return this.vala_set_cursor_name_checked (cursor, (uint16) name.length, name);
 			}
 			[CCode (cname = "xcb_xfixes_set_cursor_name")]
 			public VoidCookie vala_set_cursor_name (Xcb.Cursor cursor, uint16 nbytes, string name);
 			[CCode (cname = "vala_xcb_xfixes_set_cursor_name")]
 			public VoidCookie set_cursor_name (Xcb.Cursor cursor, string name) {
-				this.vala_set_cursor_name (cursor, (uint16) name.length, name);
+				return this.vala_set_cursor_name (cursor, (uint16) name.length, name);
 			}
 
 			public GetCursorNameCookie get_cursor_name (Xcb.Cursor cursor);
@@ -127,13 +127,13 @@ namespace Xcb {
 			public VoidCookie vala_change_cursor_by_name_checked (Xcb.Cursor src, uint16 nbytes, string name);
 			[CCode (cname = "vala_xcb_xfixes_change_cursor_by_name_checked")]
 			public VoidCookie change_cursor_by_name_checked (Xcb.Cursor src, string name) {
-				this.vala_change_cursor_by_name_checked (src, (uint16) name.length, name);
+				return this.vala_change_cursor_by_name_checked (src, (uint16) name.length, name);
 			}
 			[CCode (cname = "xcb_xfixes_change_cursor_by_name")]
 			public VoidCookie vala_change_cursor_by_name (Xcb.Cursor src, uint16 nbytes, string name);
 			[CCode (cname = "vala_xcb_xfixes_change_cursor_by_name")]
 			public VoidCookie change_cursor_by_name (Xcb.Cursor src, string name) {
-				this.vala_change_cursor_by_name (src, (uint16) name.length, name);
+				return this.vala_change_cursor_by_name (src, (uint16) name.length, name);
 			}
 
 			public VoidCookie expand_region_checked (Region source, Region destination, uint16 left, uint16 right, uint16 top, uint16 bottom);

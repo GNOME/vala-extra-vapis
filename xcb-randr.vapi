@@ -71,28 +71,28 @@ namespace Xcb {
 			private VoidCookie change_output_property_checked (Output output, Atom property, Atom type, uint8 format, PropMode mode, uint32 num_units, void* data);
 			private VoidCookie change_output_property (Output output, Atom property, Atom type, uint8 format, PropMode mode, uint32 num_units, void* data);
 			public VoidCookie change_output_property_string_checked (Output output, Atom property, Atom type, PropMode mode, string value) {
-				this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_output_property_string (Output output, Atom property, Atom type, PropMode mode, string value) {
-				this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_output_property_int8_checked (Output output, Atom property, Atom type, PropMode mode, int8[] value) {
-				this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_output_property_int8 (Output output, Atom property, Atom type, PropMode mode, int8[] value) {
-				this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_output_property_int16_checked (Output output, Atom property, Atom type, PropMode mode, int16[] value) {
-				this.change_output_property_checked (output, property, type, 16, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 16, mode, value.length, value);
 			}
 			public VoidCookie change_output_property_int16 (Output output, Atom property, Atom type, PropMode mode, int16[] value) {
-				this.change_output_property_checked (output, property, type, 16, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 16, mode, value.length, value);
 			}
 			public VoidCookie change_output_property_int32_checked (Output output, Atom property, Atom type, PropMode mode, int32[] value) {
-				this.change_output_property_checked (output, property, type, 32, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 32, mode, value.length, value);
 			}
 			public VoidCookie change_output_property_int32 (Output output, Atom property, Atom type, PropMode mode, int32[] value) {
-				this.change_output_property_checked (output, property, type, 32, mode, value.length, value);
+				return this.change_output_property_checked (output, property, type, 32, mode, value.length, value);
 			}
 
 			public VoidCookie delete_output_property_checked (Output output, Atom property);
@@ -106,13 +106,13 @@ namespace Xcb {
 			private CreateModeCookie vala_create_mode (Window window, ModeInfo mode_info, uint32 name_len, string name);
 			[CCode (cname = "vala_xcb_randr_create_mode")]
 			public CreateModeCookie create_mode (Window window, ModeInfo mode_info, string name) {
-				this.vala_create_mode (window, mode_info, (uint32) name.length, name);
+				return this.vala_create_mode (window, mode_info, (uint32) name.length, name);
 			}
 			[CCode (cname = "xcb_randr_create_mode_unchecked")]
 			private CreateModeCookie vala_create_mode_unchecked (Window window, ModeInfo mode_info, uint32 name_len, string name);
 			[CCode (cname = "vala_xcb_randr_create_mode_unchecked")]
 			public CreateModeCookie create_mode_unchecked (Window window, ModeInfo mode_info, string name) {
-				this.vala_create_mode_unchecked (window, mode_info, (uint32) name.length, name);
+				return this.vala_create_mode_unchecked (window, mode_info, (uint32) name.length, name);
 			}
  			public CreateModeReply create_mode_reply (CreateModeCookie cookie, out GenericError? e = null);
 
@@ -208,28 +208,28 @@ namespace Xcb {
 			private VoidCookie change_provider_property_checked (Provider provider, Atom property, Atom type, uint8 format, PropMode mode, uint32 num_units, void* data);
 			private VoidCookie change_provider_property (Provider provider, Atom property, Atom type, uint8 format, PropMode mode, uint32 num_units, void* data);
 			public VoidCookie change_provider_property_string_checked (Provider provider, Atom property, Atom type, PropMode mode, string value) {
-				this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_provider_property_string (Provider provider, Atom property, Atom type, PropMode mode, string value) {
-				this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_provider_property_int8_checked (Provider provider, Atom property, Atom type, PropMode mode, int8[] value) {
-				this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_provider_property_int8 (Provider provider, Atom property, Atom type, PropMode mode, int8[] value) {
-				this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 8, mode, value.length, value);
 			}
 			public VoidCookie change_provider_property_int16_checked (Provider provider, Atom property, Atom type, PropMode mode, int16[] value) {
-				this.change_provider_property_checked (provider, property, type, 16, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 16, mode, value.length, value);
 			}
 			public VoidCookie change_provider_property_int16 (Provider provider, Atom property, Atom type, PropMode mode, int16[] value) {
-				this.change_provider_property_checked (provider, property, type, 16, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 16, mode, value.length, value);
 			}
 			public VoidCookie change_provider_property_int32_checked (Provider provider, Atom property, Atom type, PropMode mode, int32[] value) {
-				this.change_provider_property_checked (provider, property, type, 32, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 32, mode, value.length, value);
 			}
 			public VoidCookie change_provider_property_int32 (Provider provider, Atom property, Atom type, PropMode mode, int32[] value) {
-				this.change_provider_property_checked (provider, property, type, 32, mode, value.length, value);
+				return this.change_provider_property_checked (provider, property, type, 32, mode, value.length, value);
 			}
 
 			public VoidCookie delete_provider_property_checked (Provider provider, Atom property);

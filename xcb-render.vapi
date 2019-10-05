@@ -107,13 +107,13 @@ namespace Xcb {
 			private VoidCookie vala_set_picture_filter_checked (Picture picture, uint16 filter_len, string filter, [CCode (array_length_pos = 3.9, array_length_type = "uint32_t")] Fixed[] values);
 			[CCode (cname = "vala_xcb_render_set_picture_filter_checked")]
 			public VoidCookie set_picture_filter_checked (Picture picture, string filter, Fixed[] values) {
-				this.vala_set_picture_filter_checked (picture, (uint16) filter.length, filter, values);
+				return this.vala_set_picture_filter_checked (picture, (uint16) filter.length, filter, values);
 			}
 			[CCode (cname = "xcb_render_set_picture_filter")]
 			private VoidCookie vala_set_picture_filter (Picture picture, uint16 filter_len, string filter, [CCode (array_length_pos = 3.9, array_length_type = "uint32_t")] Fixed[] values);
 			[CCode (cname = "vala_xcb_render_set_picture_filter")]
 			public VoidCookie set_picture_filter (Picture picture, string filter, Fixed[]? values = null) {
-				this.vala_set_picture_filter (picture, (uint16) filter.length, filter, values);
+				return this.vala_set_picture_filter (picture, (uint16) filter.length, filter, values);
 			}
 
 			public VoidCookie create_anim_cursor_checked (Xcb.Cursor cid, [CCode (array_length_pos = 1.9, array_length_type = "uint32_t")] AnimCursorELT []cursors);

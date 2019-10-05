@@ -50,13 +50,13 @@ namespace Xcb {
 			public GetBuffersCookie vala_get_buffers (Xcb.Drawable drawable, uint32 count, [CCode (array_length_pos = 2.9, array_length_type = "uint32_t")] uint32[] attachments);
 			[CCode (cname = "vala_xcb_dri2_get_buffers")]
 			public GetBuffersCookie get_buffers (Xcb.Drawable drawable, uint32[] attachments) {
-				this.vala_get_buffers (drawable, attachments.length, attachments);
+				return this.vala_get_buffers (drawable, attachments.length, attachments);
 			}
 			[CCode (cname = "xcb_dri2_get_buffers_unchecked")]
 			public GetBuffersCookie vala_get_buffers_unchecked (Xcb.Drawable drawable, uint32 count, [CCode (array_length_pos = 2.9, array_length_type = "uint32_t")] uint32[] attachments);
 			[CCode (cname = "vala_xcb_dri2_get_buffers_unchecked")]
 			public GetBuffersCookie get_buffers_unchecked (Xcb.Drawable drawable, uint32[] attachments) {
-				this.vala_get_buffers_unchecked (drawable, attachments.length, attachments);
+				return this.vala_get_buffers_unchecked (drawable, attachments.length, attachments);
 			}
 			public GetBuffersReply? get_buffers_reply (GetBuffersCookie cookie, out Xcb.GenericError? e = null);
 
@@ -69,13 +69,13 @@ namespace Xcb {
 			public GetBuffersWithFormatCookie vala_get_buffers_with_format (Xcb.Drawable drawable, uint32 count, [CCode (array_length_pos = 2.9, array_length_type = "uint32_t")] AttachFormat[] attachments);
 			[CCode (cname = "vala_xcb_dri2_get_buffers_with_format")]
 			public GetBuffersWithFormatCookie get_buffers_with_format (Xcb.Drawable drawable, AttachFormat[] attachments) {
-				this.vala_get_buffers_with_format (drawable, attachments.length, attachments);
+				return this.vala_get_buffers_with_format (drawable, attachments.length, attachments);
 			}
 			[CCode (cname = "xcb_dri2_get_buffers_with_format_unchecked")]
 			public GetBuffersWithFormatCookie vala_get_buffers_with_format_unchecked (Xcb.Drawable drawable, uint32 count, [CCode (array_length_pos = 2.9, array_length_type = "uint32_t")] AttachFormat[] attachments);
 			[CCode (cname = "vala_xcb_dri2_get_buffers_with_format_unchecked")]
 			public GetBuffersWithFormatCookie get_buffers_with_format_unchecked (Xcb.Drawable drawable, AttachFormat[] attachments) {
-				this.vala_get_buffers_with_format_unchecked (drawable, attachments.length, attachments);
+				return this.vala_get_buffers_with_format_unchecked (drawable, attachments.length, attachments);
 			}
 			public GetBuffersWithFormatReply? get_buffers_with_format_reply (GetBuffersWithFormatCookie cookie, out Xcb.GenericError? e = null);
 
