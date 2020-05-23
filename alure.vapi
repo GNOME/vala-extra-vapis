@@ -144,7 +144,7 @@ namespace Alure
         CloseCallback     close
     );
 
-    [CCode (cname = "int")]
+    [CCode (cname = "int", has_type_id = false)]
     public enum Seek {
         SET = 0,
         CUR = -1,
