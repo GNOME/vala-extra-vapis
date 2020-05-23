@@ -25,55 +25,55 @@
 namespace AL
 {
     // 8-bit boolean
-    [CCode (cname="ALboolean")]
+    [CCode (cname="ALboolean", has_type_id = false)]
     public struct ALboolean : int8 {}
 
     // character
-    [CCode (cname="ALchar")]
+    [CCode (cname="ALchar", has_type_id = false)]
     public struct ALchar : char {}
 
     // signed 8-bit 2's complement integer
-    [CCode (cname="ALbyte")]
+    [CCode (cname="ALbyte", has_type_id = false)]
     public struct ALbyte : int8 {}
 
     // unsigned 8-bit integer
-    [CCode (cname="ALubyte")]
+    [CCode (cname="ALubyte", has_type_id = false)]
     public struct ALubyte : uint8 {}
 
     // signed 16-bit 2's complement integer
-    [CCode (cname="ALshort")]
+    [CCode (cname="ALshort", has_type_id = false)]
     public struct ALshort : int16 {}
 
     // unsigned 16-bit integer
-    [CCode (cname="ALushort")]
+    [CCode (cname="ALushort", has_type_id = false)]
     public struct ALushort : uint16 {}
 
     // signed 32-bit 2's complement integer
-    [CCode (cname="ALint")]
+    [CCode (cname="ALint", has_type_id = false)]
     public struct ALint : int32 {}
 
     // unsigned 32-bit integer
-    [CCode (cname="ALuint")]
+    [CCode (cname="ALuint", has_type_id = false)]
     public struct ALuint : uint32 {}
 
     // non-negative 32-bit binary integer size
-    [CCode (cname="ALsizei")]
+    [CCode (cname="ALsizei", has_type_id = false)]
     public struct ALsizei : int32 {}
 
     // enumerated 32-bit value
-    [CCode (cname="ALenum")]
+    [CCode (cname="ALenum", has_type_id = false)]
     public struct ALenum : int32 {}
 
     // 32-bit IEEE754 floating-point
-    [CCode (cname="ALfloat")]
+    [CCode (cname="ALfloat", has_type_id = false)]
     public struct ALfloat : float {}
 
     // 64-bit IEEE754 floating-point
-    [CCode (cname="ALdouble")]
+    [CCode (cname="ALdouble", has_type_id = false)]
     public struct ALdouble : double {}
 
     // void type (for opaque pointers only)
-    [CCode (cname="ALvoid")]
+    [CCode (cname="ALvoid", has_type_id = false)]
     public struct ALvoid {}
 
     /** "no distance model" or "no buffer" */
@@ -724,55 +724,55 @@ namespace AL
 namespace ALC
 {
     /** 8-bit boolean */
-    [CCode (cname="ALCboolean")]
+    [CCode (cname="ALCboolean", has_type_id = false)]
     public struct ALCboolean : int8 {}
 
     /** character */
-    [CCode (cname="ALCchar")]
+    [CCode (cname="ALCchar", has_type_id = false)]
     public struct ALCchar : char {}
 
     /** signed 8-bit 2's complement integer */
-    [CCode (cname="ALCbyte")]
+    [CCode (cname="ALCbyte", has_type_id = false)]
     public struct ALCbyte : int8 {}
 
     /** unsigned 8-bit integer */
-    [CCode (cname="ALCubyte")]
+    [CCode (cname="ALCubyte", has_type_id = false)]
     public struct ALCubyte : uint8 {}
 
     /** signed 16-bit 2's complement integer */
-    [CCode (cname="ALCshort")]
+    [CCode (cname="ALCshort", has_type_id = false)]
     public struct ALCshort : int16 {}
 
     /** unsigned 16-bit integer */
-    [CCode (cname="ALCushort")]
+    [CCode (cname="ALCushort", has_type_id = false)]
     public struct ALCushort : uint16 {}
 
     /** signed 32-bit 2's complement integer */
-    [CCode (cname="ALCint")]
+    [CCode (cname="ALCint", has_type_id = false)]
     public struct ALCint : int32 {}
 
     /** unsigned 32-bit integer */
-    [CCode (cname="ALCuint")]
+    [CCode (cname="ALCuint", has_type_id = false)]
     public struct ALCuint : uint32 {}
 
     /** non-negative 32-bit binary integer size */
-    [CCode (cname="ALCsizei")]
+    [CCode (cname="ALCsizei", has_type_id = false)]
     public struct ALCsizei : int32 {}
 
     /** enumerated 32-bit value */
-    [CCode (cname="ALCenum")]
+    [CCode (cname="ALCenum", has_type_id = false)]
     public struct ALCenum : int32 {}
 
     /** 32-bit IEEE754 floating-point */
-    [CCode (cname="ALCfloat")]
+    [CCode (cname="ALCfloat", has_type_id = false)]
     public struct ALCfloat : float {}
 
     /** 64-bit IEEE754 floating-point */
-    [CCode (cname="ALCdouble")]
+    [CCode (cname="ALCdouble", has_type_id = false)]
     public struct ALCdouble : double {}
 
     /** void type (for opaque pointers only) */
-    [CCode (cname="ALCvoid")]
+    [CCode (cname="ALCvoid", has_type_id = false)]
     public struct ALCvoid {}
 
     /** Boolean False. */
