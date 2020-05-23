@@ -26,55 +26,55 @@ namespace AL
 {
     // 8-bit boolean
     [CCode (cname="ALboolean")]
-    public struct ALboolean : int8 { }
+    public struct ALboolean : int8 {}
 
     // character
     [CCode (cname="ALchar")]
-    public struct ALchar : char { }
+    public struct ALchar : char {}
 
     // signed 8-bit 2's complement integer
     [CCode (cname="ALbyte")]
-    public struct ALbyte : int8 { }
+    public struct ALbyte : int8 {}
 
     // unsigned 8-bit integer
     [CCode (cname="ALubyte")]
-    public struct ALubyte : uint8 { }
+    public struct ALubyte : uint8 {}
 
     // signed 16-bit 2's complement integer
     [CCode (cname="ALshort")]
-    public struct ALshort : int16 { }
+    public struct ALshort : int16 {}
 
     // unsigned 16-bit integer
     [CCode (cname="ALushort")]
-    public struct ALushort : uint16 { }
+    public struct ALushort : uint16 {}
 
     // signed 32-bit 2's complement integer
     [CCode (cname="ALint")]
-    public struct ALint : int32 { }
+    public struct ALint : int32 {}
 
     // unsigned 32-bit integer
     [CCode (cname="ALuint")]
-    public struct ALuint : uint32 { }
+    public struct ALuint : uint32 {}
 
     // non-negative 32-bit binary integer size
     [CCode (cname="ALsizei")]
-    public struct ALsizei : int32 { }
+    public struct ALsizei : int32 {}
 
     // enumerated 32-bit value
     [CCode (cname="ALenum")]
-    public struct ALenum : int32 { }
+    public struct ALenum : int32 {}
 
     // 32-bit IEEE754 floating-point
     [CCode (cname="ALfloat")]
-    public struct ALfloat : float { }
+    public struct ALfloat : float {}
 
     // 64-bit IEEE754 floating-point
     [CCode (cname="ALdouble")]
-    public struct ALdouble : double { }
+    public struct ALdouble : double {}
 
     // void type (for opaque pointers only)
     [CCode (cname="ALvoid")]
-    public struct ALvoid { }
+    public struct ALvoid {}
 
     /** "no distance model" or "no buffer" */
     [CCode (cname="AL_NONE")]
