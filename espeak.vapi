@@ -187,17 +187,17 @@ namespace Espeak {
         void* spare;
     }
 
-    [CCode (cname = "espeak_ListVoices")]
-    public Voice** list_voices(ref Voice voice_spec);
+    [CCode (cname = "espeak_ListVoices", array_length=false, array_null_terminated=true)]
+    public (unowned Voice?)[] list_voices(Voice? voice_spec);
 
     [CCode (cname = "espeak_SetVoiceByName")]
     public Error set_voice_by_name(string name);
 
-    [CCode (cname = "espeak_setVoiceByProperties")]
-    public Error set_voice_by_properties(ref Voice voice_spec);
+    [CCode (cname = "espeak_SetVoiceByProperties")]
+    public Error set_voice_by_properties(Voice? voice_spec);
 
     [CCode (cname = "espeak_GetCurrentVoice")]
-    public Voice* get_current_voice();
+    public unowned Voice? get_current_voice();
 
     [CCode (cname = "espeak_Cancel")]
     public Error cancel();
