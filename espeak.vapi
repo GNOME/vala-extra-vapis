@@ -50,11 +50,11 @@ namespace Espeak {
         public int audio_position;
         public int sample;
         public void* user_data;
-        [CCode (cname="id.number")]
+        [CCode (cname = "id.number")]
         public int id_number;   
-        [CCode (cname="id.name")]
+        [CCode (cname = "id.name")]
         public unowned string id_name;
-        [CCode (cname="id.string")]
+        [CCode (cname = "id.string")]
         public char id_string[8];
     }
 
@@ -87,18 +87,19 @@ namespace Espeak {
 
  
     [CCode (cname = "espeak_Initialize")]
-    public int initialize(AudioOutput output, int buflength, string? path, int options);
+    public int initialize (AudioOutput output, int buflength, string? path, int options);
 
-    [CCode (cname = "t_espeak_callback")]
+    [CCode (cname = "t_espeak_callback", has_target = false)]
     public delegate int Callback (short* s, int i, Event e);
 
     [CCode (cname = "espeak_SetSynthCallback")]
-    public void set_synth_callback(Callback synth_callback);
+    public void set_synth_callback (Callback synth_callback);
 
-    public delegate int UriCallback(int i, string s1, string s2);
+    [CCode (cname = "vala_t_espeak_uri_callback", has_target = false, has_typedef = false)]
+    public delegate int UriCallback (int i, string s1, string s2);
 
     [CCode (cname = "espeak_SetUriCallback")]
-    public void set_uri_callback(UriCallback uri_callback);
+    public void set_uri_callback (UriCallback uri_callback);
 
     [CCode (cname = "espeakCHARS_AUTO")]
     public const int CHARS_AUTO;
@@ -117,16 +118,16 @@ namespace Espeak {
     public const int KEEP_NAMEDATA;
 
     [CCode (cname = "espeak_Synth")]
-    public Error synth(void* text, size_t size, uint position, PositionType position_type, uint end_position, uint flags, out uint unique_identifier, out void* user_data);
+    public Error synth (void* text, size_t size, uint position, PositionType position_type, uint end_position, uint flags, out uint unique_identifier, out void* user_data);
 
     [CCode (cname = "espeak_SynthMark")]
-    public Error synth_mark(void* text, size_t size, string index_mark, uint end_position, uint flags, uint* unique_identifier, void* user_data);
+    public Error synth_mark (void* text, size_t size, string index_mark, uint end_position, uint flags, uint* unique_identifier, void* user_data);
 
     [CCode (cname = "espeak_Key")]
-    public Error key(string key_name);
+    public Error key (string key_name);
 
     [CCode (cname = "espeak_Char")]
-    public Error @char(int16 character);
+    public Error @char (int16 character);
 
     [CCode (cname = "espeak_PARAMETER", cprefix = "espeak")]
     public enum Parameter {
@@ -157,22 +158,22 @@ namespace Espeak {
     }
 
     [CCode (cname = "espeak_SetParameter")]
-    public Error set_parameter(Parameter parameter, int @value, int relative);
+    public Error set_parameter (Parameter parameter, int @value, int relative);
 
     [CCode (cname = "espeak_GetParameter")]
-    public Error get_parameter(Parameter parameter, int current);
+    public Error get_parameter (Parameter parameter, int current);
 
     [CCode (cname = "espeak_SetPunctuationList")]
-    public Error set_punctuation_list(ref int16 punctlist);
+    public Error set_punctuation_list (ref int16 punctlist);
 
     [CCode (cname = "espeak_SetPhonemeTrace")]
-    public void set_phoneme_trace(int @value, out GLib.FileStream stream);
+    public void set_phoneme_trace (int @value, out GLib.FileStream stream);
 
     [CCode (cname = "espeak_TextToPhonemes")]
-    public string text_to_phonemes(void** textptr,int textmode, int phonememode);
+    public string text_to_phonemes (void** textptr,int textmode, int phonememode);
 
     [CCode (cname = "espeak_CompileDictionary")]
-    public void compile_dictionary(string path, GLib.FileStream log, int flags);
+    public void compile_dictionary (string path, GLib.FileStream log, int flags);
 
     [CCode (cname = "espeak_VOICE")]
     public struct Voice {
@@ -187,30 +188,30 @@ namespace Espeak {
         void* spare;
     }
 
-    [CCode (cname = "espeak_ListVoices", array_length=false, array_null_terminated=true)]
-    public (unowned Voice?)[] list_voices(Voice? voice_spec);
+    [CCode (cname = "espeak_ListVoices", array_length = false, array_null_terminated = true)]
+    public (unowned Voice?)[] list_voices (Voice? voice_spec);
 
     [CCode (cname = "espeak_SetVoiceByName")]
-    public Error set_voice_by_name(string name);
+    public Error set_voice_by_name (string name);
 
     [CCode (cname = "espeak_SetVoiceByProperties")]
-    public Error set_voice_by_properties(Voice? voice_spec);
+    public Error set_voice_by_properties (Voice? voice_spec);
 
     [CCode (cname = "espeak_GetCurrentVoice")]
-    public unowned Voice? get_current_voice();
+    public unowned Voice? get_current_voice ();
 
     [CCode (cname = "espeak_Cancel")]
-    public Error cancel();
+    public Error cancel ();
 
     [CCode (cname = "espeak_IsPlaying")]
-    public int is_playing();
+    public int is_playing ();
 
     [CCode (cname = "espeak_Synchronize")]
-    public Error synchronize();
+    public Error synchronize ();
 
     [CCode (cname = "espeak_Terminate")]
-    public Error terminate();
+    public Error terminate ();
 
     [CCode (cname = "espeak_Info")]
-    public string info(out string path_data);
+    public string info (out string path_data);
 }
