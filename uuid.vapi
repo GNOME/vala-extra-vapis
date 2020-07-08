@@ -44,7 +44,7 @@ namespace UUID {
 	public static void generate ([CCode (array_length = false)] uint8 @out[16]);
 	public static void generate_random ([CCode (array_length = false)] uint8 @out[16]);
 	public static void generate_time ([CCode (array_length = false)] uint8 @out[16]);
-	public static void generate_time_safe ([CCode (array_length = false)] uint8 @out[16]);
+	public static int generate_time_safe ([CCode (array_length = false)] uint8 @out[16]);
 
 	public static bool is_null ([CCode (array_length = false)] uint8 uu[16]);
 
