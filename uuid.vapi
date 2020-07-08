@@ -47,6 +47,7 @@ namespace UUID {
 	public static int generate_time_safe ([CCode (array_length = false)] uint8 @out[16]);
 
 	public static bool is_null ([CCode (array_length = false)] uint8 uu[16]);
+	public static int compare ([CCode (array_length = false)] uint8 uu1[16], [CCode (array_length = false)] uint8 uu2[16]);
 
 	public static int parse (string in, [CCode (array_length = false)] uint8 uu[16]);
 
