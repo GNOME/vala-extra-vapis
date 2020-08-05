@@ -3085,7 +3085,7 @@ namespace SDL {
 
 			//Convenience method, use guid_buffer if the GUID is truncated here
 			public static string get_guid_string (Input.JoystickGUID guid) {
-				uint8[1024] buf;
+				uint8 buf[1024];
 				get_guid_buffer (guid, out buf);
 				return (string)buf;
 			}
