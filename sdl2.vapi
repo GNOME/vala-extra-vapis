@@ -3037,6 +3037,7 @@ namespace SDL {
 		}// Cursor
 
 		[CCode (cname = "SDL_JoystickGUID", cheader_filename = "SDL2/SDL_joystick.h")]
+		[SimpleType]
 		public struct JoystickGUID {
 			uint8 data[16];
 		}
@@ -3081,13 +3082,13 @@ namespace SDL {
 			public Input.JoystickGUID get_guid ();
 
 			[CCode (cname = "SDL_JoystickGetGUIDString")]
-			public static void get_guid_buffer (Input.JoystickGUID  guid, out uint8[] ps);
+			public static void get_guid_buffer (Input.JoystickGUID guid, uint8[] ps);
 
 			//Convenience method, use guid_buffer if the GUID is truncated here
 			public static string get_guid_string (Input.JoystickGUID guid) {
 				uint8 buf[1024];
-				get_guid_buffer (guid, out buf);
-				return (string)buf;
+				get_guid_buffer (guid, buf);
+				return (string) buf;
 			}
 
 			[CCode (cname = "SDL_JoystickGetGUIDFromString")]
