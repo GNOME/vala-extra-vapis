@@ -1249,6 +1249,7 @@ namespace SDL {
 		 * A variable to control whether the event loop will block itself when the app is paused.
 		 *
 		 * The variable can be set to the following values:
+		 *
 		 *  * "0"       - Non blocking.
 		 *  * "1"       - Blocking. (default)
 		 *
