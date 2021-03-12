@@ -205,8 +205,7 @@ namespace Redis {
         FreeFunc f;
     }
 
-    [SimpleType]
-    [CCode (cheader_filename = "hiredis/read.h", cname = "redisReader", free_function = "redisReaderFree", unref_function = "")]
+    [CCode (cheader_filename = "hiredis/read.h", cname = "redisReader", free_function = "redisReaderFree", has_type_id = false)]
     public struct Reader {
         int err;
         char errstr[128];
@@ -240,7 +239,7 @@ namespace Redis {
     [CCode (cname = "redisCallback", free_function = "", unref_function = "")]
     public struct RedisCallback {
         public void* next;
-        RedisCallbackFunction fn;
+        unowned RedisCallbackFunction fn;
         void* privdata;
     }
 

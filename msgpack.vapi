@@ -57,7 +57,7 @@ namespace MessagePack
 	public struct Array
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		MessagePack.Object[] objects;
+		unowned MessagePack.Object[] objects;
 	}
 
 	[SimpleType]
@@ -65,7 +65,7 @@ namespace MessagePack
 	public struct Map
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		MessagePack.MapEntry[] entries;
+		unowned MessagePack.MapEntry[] entries;
 	}
 
 	[Version (deprecated = true, deprecated_since = "1.0")]
@@ -74,7 +74,7 @@ namespace MessagePack
 	public struct Raw
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] raw;
+		unowned uint8[] raw;
 	}
 
 	[SimpleType]
@@ -82,7 +82,7 @@ namespace MessagePack
 	public struct String
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] str;
+		unowned uint8[] str;
 	}
 
 	[SimpleType]
@@ -91,7 +91,7 @@ namespace MessagePack
 	{
 		uint8 type;
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] ext;
+		unowned uint8[] ext;
 	}
 
 	[SimpleType]
@@ -100,7 +100,7 @@ namespace MessagePack
 	{
 		uint8 type;
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] ext;
+		unowned uint8[] ext;
 	}
 
 	[SimpleType]
