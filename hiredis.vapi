@@ -94,7 +94,7 @@ namespace Redis {
          * @param format String to send to Redis, or a printf-style format
          *               string, followed by arguments.
          */
-        [PrintfFunction]
+        [PrintfFormat]
         [CCode (cname = "redisCommand", has_target = false, has_type_id = false)]
         public Reply command(string format, ...);
         
@@ -329,7 +329,7 @@ namespace Redis {
          * @param format String to send to Redis, or a printf-style format
          *               string, followed by arguments.
          */
-        [PrintfFunction]
+        [PrintfFormat]
         [CCode (cname = "redisAsyncCommand", has_target = false, has_type_id = false)]
         public Reply command(RedisCallbackFunction fn, string format, ...);
         

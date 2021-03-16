@@ -240,6 +240,6 @@ namespace Sensors {
     public int set_value(ChipName name, int subfeat_nr, double value);
 
     /* Error decoding */
-    [CCode (cheader_file = "sensors/error.h")]
+    [CCode (cheader_filename = "sensors/error.h")]
     public unowned string strerror(int errnum);
 }

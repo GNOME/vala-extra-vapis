@@ -574,7 +574,7 @@ namespace LibCouchbase {
 	 * @param options How to create the io ops structure
 	 * @return StatusResponse.SUCCESS on success
 	 */
-	[CCode (cname = "lcb_create_io_ops", destroy_method = "lcb_destroy_io_ops")]
+	[CCode (cname = "lcb_create_io_ops", destroy_function = "lcb_destroy_io_ops")]
 	public static StatusResponse create_io_options ( ref IO op, ref IOOptions options );
 
 	[Compact]

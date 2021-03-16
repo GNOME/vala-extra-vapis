@@ -38,8 +38,8 @@ namespace CUPS {
 	public const int VERSION_PATCH;
 	public const int DATE_ANY;
 
-	[CCode (canme = "cups_ptype_t")]
-	public enum PriterType {
+	[CCode (cname = "cups_ptype_t")]
+	public enum PrinterType {
 		LOCAL,
 		CLASS,
 		REMOTE,
