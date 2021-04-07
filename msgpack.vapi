@@ -89,7 +89,6 @@ namespace MessagePack
 	[CCode (cname = "msgpack_object_bin", has_destroy_function = false, has_type_id = false)]
 	public struct Binary
 	{
-		uint8 type;
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
 		unowned uint8[] ext;
 	}
@@ -267,7 +266,7 @@ namespace MessagePack
 		public Unpacked ();
 		public MessagePack.Zone release_zone ();
 		[CCode (cname = "msgpack_unpack_next")]
-		public MessagePack.UnpackReturn next ([CCode (array_length_type = "size_t")] uint8[] data, out size_t? off = null);
+		public MessagePack.UnpackReturn next ([CCode (array_length_type = "size_t")] uint8[] data, out size_t off = null);
 	}
 
 	public const size_t UNPACKER_INIT_BUFFER_SIZE;
