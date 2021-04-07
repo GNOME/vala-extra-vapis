@@ -144,7 +144,7 @@ namespace MessagePack
 		[CCode (cname = "via.ext")]
 		MessagePack.Extension ext;
 
-		[CCode (instance_pos = "2")]
+		[CCode (instance_pos = 2)]
 		public void print (GLib.FileStream @out);
 		public bool equal (MessagePack.Object y);
 	}
