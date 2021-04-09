@@ -133,12 +133,12 @@ namespace Alure
 	[CCode (cname = "alureInstallDecodeCallbacks")]
 	public bool install_decode_callbacks (
 		int index,
-		OpenFileCallback open_file,
-		OpenMemCallback open_mem,
-		GetFormatCallback get_format,
-		DecodeCallback decode,
-		RewindCallback rewind,
-		CloseCallback close
+		OpenFileCallback open_file_callback,
+		OpenMemCallback open_mem_callback,
+		GetFormatCallback get_format_callback,
+		DecodeCallback decode_callback,
+		RewindCallback rewind_callback,
+		CloseCallback close_callback
 	);
 
 	[CCode (cname = "int", has_type_id = false)]
@@ -159,11 +159,11 @@ namespace Alure
 
 	[CCode (cname = "alureSetIOCallbacks")]
 	public bool set_io_callbacks (
-		OpenCallback open,
-		CloseCallback close,
-		ReadCallback read,
-		WriteCallback write,
-		SeekCallback seek
+		OpenCallback open_callback,
+		CloseCallback close_callback,
+		ReadCallback read_callback,
+		WriteCallback write_callback,
+		SeekCallback seek_callback
 	);
 
 	[CCode (cname = "alureGetProcAddress")]
