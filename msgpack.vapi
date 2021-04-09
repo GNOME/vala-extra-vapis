@@ -57,7 +57,7 @@ namespace MessagePack
 	public struct Array
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		MessagePack.Object[] objects;
+		unowned MessagePack.Object[] objects;
 	}
 
 	[SimpleType]
@@ -65,7 +65,7 @@ namespace MessagePack
 	public struct Map
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		MessagePack.MapEntry[] entries;
+		unowned MessagePack.MapEntry[] entries;
 	}
 
 	[Version (deprecated = true, deprecated_since = "1.0")]
@@ -74,7 +74,7 @@ namespace MessagePack
 	public struct Raw
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] raw;
+		unowned uint8[] raw;
 	}
 
 	[SimpleType]
@@ -82,16 +82,15 @@ namespace MessagePack
 	public struct String
 	{
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] str;
+		unowned uint8[] str;
 	}
 
 	[SimpleType]
 	[CCode (cname = "msgpack_object_bin", has_destroy_function = false, has_type_id = false)]
 	public struct Binary
 	{
-		uint8 type;
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] ext;
+		unowned uint8[] ext;
 	}
 
 	[SimpleType]
@@ -100,7 +99,7 @@ namespace MessagePack
 	{
 		uint8 type;
 		[CCode (cname = "ptr", array_length_cname = "size", array_length_type = "uint32_t")]
-		uint8[] ext;
+		unowned uint8[] ext;
 	}
 
 	[SimpleType]
@@ -144,7 +143,7 @@ namespace MessagePack
 		[CCode (cname = "via.ext")]
 		MessagePack.Extension ext;
 
-		[CCode (instance_pos = "2")]
+		[CCode (instance_pos = 2)]
 		public void print (GLib.FileStream @out);
 		public bool equal (MessagePack.Object y);
 	}
@@ -267,7 +266,7 @@ namespace MessagePack
 		public Unpacked ();
 		public MessagePack.Zone release_zone ();
 		[CCode (cname = "msgpack_unpack_next")]
-		public MessagePack.UnpackReturn next ([CCode (array_length_type = "size_t")] uint8[] data, out size_t? off = null);
+		public MessagePack.UnpackReturn next ([CCode (array_length_type = "size_t")] uint8[] data, out size_t off = null);
 	}
 
 	public const size_t UNPACKER_INIT_BUFFER_SIZE;

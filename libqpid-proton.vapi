@@ -113,7 +113,7 @@ namespace Proton {
 	[SimpleType, CCode (cname = "pn_bytes_t", cheader_filename = "proton/types.h")]
 	public struct Bytes {
 		[CCode (cname = "start", array_length_cname = "size", array_length_type = "size_t")]
-		public uint8[] data;
+		public unowned uint8[] data;
 		[CCode (cname = "pn_bytes")]
 		public Bytes ([CCode (type = "char*", array_length_pos = 0.9, array_length_type = "size_t")] uint8[] data);
 		[CCode (cname = "pn_bytes_dup")]

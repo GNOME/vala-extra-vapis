@@ -1,33 +1,36 @@
 /*
-The MIT License (MIT)
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016-2020 SDL2 VAPI Authors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * Authors:
+ *  Mario Daniel Ruiz Saavedra <desiderantes93@gmail.com>
+ *  Gontzal Uriarte <txasatonga@gmail.com>
+ *  Pedro H. Lara Campos <root@pedrohlc.com>
+ */
 
-Copyright (c) 2013-2016
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
-//FOR: SDL2.0 - This is not official, to be futurely changed for the official binding
-//Maintainer: PedroHLC, Txasatonga, Desiderantes
-
-[CCode (cprefix = "SDLNet_", cheader_filename = "SDL2/SDL2_net.h")]
+[CCode (cprefix = "SDLNet_", cheader_filename = "SDL2/SDL_net.h")]
 namespace SDLNet {
 	[CCode (cname = "SDLNet_Linked_Version")]
-	public static SDL.Version linked ();
+	public static unowned SDL.Version? linked_version ();
 
 	[CCode (cname = "SDLNet_Init")]
 	public static int init ();
@@ -83,7 +86,7 @@ namespace SDLNet {
 		public int resize (int newsize);
 	}// UDPPacket
 
-	[CCode (cname = "void")]
+	[CCode (cname = "struct _SDLNet_GenericSocket")]
 	[Compact]
 	public class Socket {
 		public int ready;
@@ -151,7 +154,7 @@ namespace SDLNet {
 		[CCode (cname = "SDLNet_CheckSockets")]
 		public int has_data (uint timeout);
 
-		[CCode (cname = "SDLNet_SocketReady ")]
+		[CCode (cname = "SDLNet_SocketReady")]
 		public int is_ready ();
 	}// SocketSet
 }// SDL

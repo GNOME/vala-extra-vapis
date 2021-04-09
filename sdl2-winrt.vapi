@@ -28,31 +28,36 @@
  */
 
 namespace SDL {
-	///
-	/// Windows
-	///
-	[CCode (cname = "IDirect3DDevice9", cheader_filename = "d3d9.h")]
-	[Compact]
-	public struct IDirect3DDevice9 {}
 
 	[CCode (cheader_filename = "SDL2/SDL_system.h")]
 	[Compact]
-	public class Windows {
-		[CCode (cname = "SDL_Direct3D9GetAdapterIndex")]
-		public static int get_adapter_index (int display_index);
+	public class WinRt {
+		[CCode (cname = "SDL_WinRT_Path", cprefix = "SDL_WINRT_PATH_")]
+		public enum WinRTPath {
+			/**
+			 * The installed app's root directory.<<BR>>
+			 * Files here are likely to be read-only.
+			 */
+			INSTALLED_LOCATION,
+			/**
+			 * The app's local data store.  Files may be written here
+			 */
+			LOCAL_FOLDER,
+			/**
+			 * The app's roaming data store.  Unsupported on Windows Phone.<<BR>>
+			 * Files written here may be copied to other machines via a network
+			 * connection.
+			 */
+			ROAMING_FOLDER,
+			/**
+			 * The app's temporary data store.  Unsupported on Windows Phone.<<BR>>
+			 * Files written here may be deleted at any time.
+			 */
+			TEMP_FOLDER;
 
-		[CCode (cname = "SDL_RenderGetD3D9Device")]
-		public static IDirect3DDevice9* get_render_device (Video.Renderer renderer);
-
-		[CCode (cname = "SDL_DXGIGetOutputInfo")]
-		public static void dxgi_get_output_info (int display_index, out int adapter_index, out int output_index);
-
-		[CCode (cname = "SDL_WindowsMessageHook", has_target= true, delegate_target_pos = 0.0, cheader_filename = "SDL2/SDL_system.h")]
-		public delegate void WindowsMessageHook (void* hWnd, uint message, uint64 w_param, int64 l_param);
-
-		[CCode (cname = "SDL_SetWindowsMessageHook", cheader_filename = "SDL2/SDL_system.h")]
-		public static void set_windows_message_hook (WindowsMessageHook hook);
-
-	}// Windows
+			[CCode (cname = "SDL_WinRTGetFSPathUTF8")]
+			public unowned string get_fs_path ();
+		}
+	}
 
 }

@@ -795,7 +795,7 @@ namespace SSH2 {
 		[CCode (cname = "libssh2_trace")]
 		public Error set_trace (Trace trace);
 		[CCode (cname = "libssh2_trace_sethandler", simple_generics = true)]
-		public Error set_trace_handler ([CCode (target_pos = 0.1)] TraceFunc<T> handler);
+		public Error set_trace_handler ([CCode (delegate_target_pos = 0.1)] TraceFunc<T> handler);
 		/**
 		 * Set a handler when an X11 connection has been accepted
 		 * @param callback the handler, or null to ignore this message
@@ -965,7 +965,7 @@ namespace SSH2 {
 		 * it would otherwise block.s
 		 */
 		[CCode (cname = "libssh2_sftp_read")]
-		public ssize_t read ([CCode (array_length_size = "size_t")] uint8[] buffer);
+		public ssize_t read ([CCode (array_length_type = "size_t")] uint8[] buffer);
 		/**
 		 * Reads a block of data and returns file entry information for the
 		 * next entry, if any.
@@ -974,7 +974,7 @@ namespace SSH2 {
 		 * @return number of bytes actually populated into buffer (not counting the terminating zero), or negative on failure. It returns {@link Error.AGAIN} when it would otherwise block.
 		 */
 		[CCode (cname = "libssh2_sftp_readdir_ex")]
-		public int read_dir ([CCode (array_length_size = "size_t")] uint8[] buffer, [CCode (array_length_size = "size_t")] uint8[]? longentry, SftpAttributes attrs);
+		public int read_dir ([CCode (array_length_type = "size_t")] uint8[] buffer, [CCode (array_length_type = "size_t")] uint8[]? longentry, SftpAttributes attrs);
 		[CCode (cname = "libssh2_sftp_rewind")]
 		public void rewind ();
 		/**
@@ -1046,7 +1046,7 @@ namespace SSH2 {
 		 * other end.
 		 */
 		[CCode (cname = "libssh2_sftp_write")]
-		public ssize_t write ([CCode (array_length_size = "size_t")] uint8[] buffer);
+		public ssize_t write ([CCode (array_length_type = "size_t")] uint8[] buffer);
 	}
 	[CCode (cname = "libssh2_publickey_attribute", has_type_id = false, cheader_filename = "libssh2_publickey.h")]
 	public struct PublicKeyAttribute {

@@ -1161,13 +1161,13 @@ namespace Yaml {
 		/* The indentation levels stack. */
 
 		/** The beginning of the indentation levels stack. */
-		[CCode (cnme = "indents.start")]
+		[CCode (cname = "indents.start")]
 		int? indents_start;
 		/** The end of the indentation levels stack. */
-		[CCode (cnme = "indents.end")]
+		[CCode (cname = "indents.end")]
 		int? indents_end;
 		/** The top of the indentation levels stack. */
-		[CCode (cnme = "indents.top")]
+		[CCode (cname = "indents.top")]
 		int? indents_top;
 
 		/** The current indentation level. */

@@ -450,7 +450,7 @@ namespace OpenCV {
 
 	[SimpleType, CCode (cname = "CvInput")]
 	public struct Input {
-		public OpenCV.Callback @callback;
+		public unowned OpenCV.Callback @callback;
 		public void* data;
 	}
 
