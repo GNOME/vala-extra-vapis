@@ -57,7 +57,7 @@ namespace Alure
 	[CCode (cname = "alureBufferDataFromMemory")]
 	public bool buffer_data_from_memory (AL.Ubyte[] fdata, AL.Uint buffer);
 
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate AL.Uint CreateStreamCallback (void* userdata, [CCode (array_length = false)] AL.Ubyte[] data, AL.Uint bytes);
 
 	[Compact]
@@ -103,7 +103,7 @@ namespace Alure
 	[CCode (cname = "alureUpdateInterval")]
 	public bool update_interval (AL.Float interval);
 
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void Callback (void* userdata, AL.Uint source);
 
 	[CCode (cname = "alurePlaySourceStream")]
@@ -117,17 +117,17 @@ namespace Alure
 	[CCode (cname = "alureResumeSource")]
 	public bool resume_source (AL.Uint source);
 
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* OpenFileCallback (string name);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* OpenMemCallback (AL.Ubyte[] buffer);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate bool GetFormatCallback (void* instance, out AL.Enum format, out AL.Uint samplerate, out AL.Uint blocksize);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate AL.Uint DecodeCallback (void* instance, [CCode (array_length = false)]AL.Ubyte[] data, AL.Uint bytes);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate bool RewindCallback (void* instance);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void CloseCallback (void* instance);
 
 	[CCode (cname = "alureInstallDecodeCallbacks")]
@@ -148,13 +148,13 @@ namespace Alure
 		END = -2
 	}
 
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* OpenCallback (string filename, AL.Uint mode = 0);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate AL.Sizei ReadCallback (void* handle, [CCode (array_length = false)] AL.Ubyte[] buf, AL.Uint bytes);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate AL.Sizei WriteCallback (void* handle, [CCode (array_length = false)] AL.Ubyte[] buf, AL.Uint bytes);
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate int64 SeekCallback (void* handle, int64 offset, Seek whence);
 
 	[CCode (cname = "alureSetIOCallbacks")]

@@ -614,13 +614,15 @@ namespace PHYSFS
 	[CCode (cname = "PHYSFS_symbolicLinksPermitted")]
 	public bool symbolic_links_permitted ();
 
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate int InitFunc (); /**< Initialize. Can be NULL. Zero on failure. */
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void DeinitFunc (); /**< Deinitialize your allocator. Can be NULL. */
-	[CCode (has_target = false)]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* MallocFunc (uint64 size); /**< Allocate like malloc (). */
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* ReallocFunc (void* dst, uint64 size); /**< Reallocate like realloc (). */
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void FreeFunc (void* pointer); /**< Free memory from Malloc or Realloc. */
 	/**
 	* PHYSFS_Allocator
@@ -664,14 +666,14 @@ namespace PHYSFS
 	* PHYSFS_StringCallback
 	* Function signature for callbacks that report strings.
 	*/
-	[CCode (cname = "PHYSFS_StringCallback", has_target = false)]
+	[CCode (cname = "PHYSFS_StringCallback", has_target = false, has_typedef = false)]
 	public delegate void StringCallback (void* data, string str);
 
 	/**
 	* PHYSFS_EnumFilesCallback
 	* Function signature for callbacks that enumerate files.
 	*/
-	[CCode (cname = "PHYSFS_EnumFilesCallback", has_target = false)]
+	[CCode (cname = "PHYSFS_EnumFilesCallback", has_target = false, has_typedef = false)]
 	public delegate void EnumFilesCallback (void* data, string origdir, string fname);
 
 	/**
@@ -775,6 +777,7 @@ namespace PHYSFS
 	* PHYSFS_EnumerateCallback
 	* Function signature for callbacks that enumerate and return results.
 	*/
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate EnumerateCallbackResult EnumerateCallback (void* data, string origdir, string fname);
 
 	/**
@@ -845,13 +848,21 @@ namespace PHYSFS
 	[CCode (cname = "PHYSFS_utf8ToUtf16")]
 	public void utf8ToUtf16 (string src, [CCode (array_length = false)] uint16[] dst, uint64 len);
 
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate int64 IoReadFunc (Io* io, void* buf, uint64 len);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate int64 IoWriteFunc (Io *io, void* buffer, uint64 len);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate bool IoSeekFunc (Io *io, uint64 offset);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate int64 IoTellFunc (Io *io);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate int64 IoLengthFunc (Io *io);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate Io* IoDuplicateFunc (Io *io);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate bool IoFlushFunc (Io *io);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void IoDestroyFunc (Io *io);
 
 	/**
@@ -926,7 +937,7 @@ namespace PHYSFS
 	[CCode (cname = "PHYSFS_mountIo")]
 	public bool mount_io (Io* io, string new_dir, string mount_point, bool append_to_path);
 
-	[CCode (cname = "compute_func")]
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void MemoryDel (void* memory);
 	/**
 	* int PHYSFS_mountMemory (const void* buf, uint64 len, void (*del) (void* ), const char *new_dir, const char *mountPoint, int appendToPath)
@@ -1001,14 +1012,23 @@ namespace PHYSFS
 	[CCode (cname = "PHYSFS_getPrefDir")]
 	public unowned string? get_pref_dir (string org, string app);
 
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* ArchiverOpenArchiveFunc (Io* io, string name, bool for_write, int* claimed);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate EnumerateCallbackResult ArchiverEnumerateFunc (void* opaque, string dirname, EnumerateCallback cb, string origdir, void* callbackdata);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate Io* ArchiverOpenReadFunc (void* opaque, string fnm);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate Io* ArchiverOpenWriteFunc (void* opaque, string filename);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate Io* ArchiverOpenAppendFunc (void* opaque, string filename);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate bool ArchiverRemoveFunc (void* opaque, string filename);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate bool ArchiverMkdirFunc (void* opaque, string filename);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate bool ArchiverStatFunc (void* opaque, string fn, out Stat stat);
+	[CCode (has_target = false, has_typedef = false)]
 	public delegate void ArchiverCloseArchiveFunc (void* opaque);
 	/**
 	* PHYSFS_Archiver
