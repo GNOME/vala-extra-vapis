@@ -24,6 +24,7 @@
 namespace AL
 {
 	// 8-bit boolean
+	[BooleanType]
 	[CCode (cname = "ALboolean", has_type_id = false)]
 	public struct Boolean : int8 {}
 
@@ -73,7 +74,7 @@ namespace AL
 
 	// void type (for opaque pointers only)
 	[CCode (cname = "ALvoid", has_type_id = false)]
-	public struct ALvoid {}
+	public struct @void {}
 
 	/** "no distance model" or "no buffer" */
 	[CCode (cname = "AL_NONE")]
@@ -549,9 +550,7 @@ namespace AL
 	[CCode (cname = "alGetEnumValue")]
 	public Enum get_enum_value (string ename);
 
-	[Compact]
-	[CCode (has_type_id = false)]
-	public class Listener {
+	namespace Listener {
 		/** Set Listener parameters */
 		[CCode (cname = "alListenerf")]
 		public static void set_paramf (Enum param, Float value);

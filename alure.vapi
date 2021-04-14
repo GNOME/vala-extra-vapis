@@ -57,8 +57,8 @@ namespace Alure
 	[CCode (cname = "alureBufferDataFromMemory")]
 	public bool buffer_data_from_memory (AL.Ubyte[] fdata, AL.Uint buffer);
 
-	[CCode (has_target = false, has_typedef = false)]
-	public delegate AL.Uint CreateStreamCallback (void* userdata, [CCode (array_length = false)] AL.Ubyte[] data, AL.Uint bytes);
+	[CCode (instance_pos = 0.1, has_typedef = false)]
+	public delegate AL.Uint CreateStreamCallback ([CCode (array_length = false)] AL.Ubyte[] data, AL.Uint bytes);
 
 	[Compact]
 	[CCode (cname = "alureStream", has_type_id = false, free_function = "")]
@@ -120,13 +120,13 @@ namespace Alure
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* OpenFileCallback (string name);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate void* OpenMemCallback (AL.Ubyte[] buffer);
+	public delegate void* OpenMemCallback ([CCode (array_length_type = "uint")] AL.Ubyte[] buffer);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate bool GetFormatCallback (void* instance, out AL.Enum format, out AL.Uint samplerate, out AL.Uint blocksize);
+	public delegate AL.Boolean GetFormatCallback (void* instance, out AL.Enum format, out AL.Uint samplerate, out AL.Uint blocksize);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate AL.Uint DecodeCallback (void* instance, [CCode (array_length = false)]AL.Ubyte[] data, AL.Uint bytes);
+	public delegate AL.Uint DecodeCallback (void* instance, [CCode (array_length = false)] AL.Ubyte[] data, AL.Uint bytes);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate bool RewindCallback (void* instance);
+	public delegate AL.Boolean RewindCallback (void* instance);
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate void CloseCallback (void* instance);
 
@@ -141,7 +141,7 @@ namespace Alure
 		CloseCallback close_callback
 	);
 
-	[CCode (cname = "int", has_type_id = false)]
+	[CCode (cname = "int", has_type_id = false, cheader_filename = "stdio.h")]
 	public enum Seek {
 		SET = 0,
 		CUR = -1,

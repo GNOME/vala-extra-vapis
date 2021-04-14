@@ -30,10 +30,10 @@ namespace PHYSFS
 	*/
 	[CCode (cname = "PHYSFS_ArchiveInfo", has_type_id = false)]
 	public struct ArchiveInfo {
-		public string extension; /**< Archive file extension: "ZIP", for example. */
-		public string description; /**< Human-readable archive description. */
-		public string author;	/**< Person who did support for this archive. */
-		public string url;		/**< URL related to this archive */
+		public unowned string extension; /**< Archive file extension: "ZIP", for example. */
+		public unowned string description; /**< Human-readable archive description. */
+		public unowned string author;	/**< Person who did support for this archive. */
+		public unowned string url;		/**< URL related to this archive */
 		[CCode (cname = "supportsSymlinks")]
 		public bool supports_symlinks;	/**< non-zero if archive offers symbolic links. */
 	}
@@ -74,7 +74,7 @@ namespace PHYSFS
 	* Get a list of supported archive types.
 	*/
 	[CCode (cname = "PHYSFS_supportedArchiveTypes", array_length = false)]
-	public unowned ArchiveInfo*[] supported_archive_types ();
+	public unowned ArchiveInfo?[] supported_archive_types ();
 
 	/**
 	* void PHYSFS_freeList (void* listVar)
@@ -630,15 +630,15 @@ namespace PHYSFS
 	*/
 	[CCode (cname = "PHYSFS_Allocator", has_type_id = false)]
 	public struct Allocator {
-		[CCode (cname = "init")]
+		[CCode (cname = "Init")]
 		public InitFunc init_func;	/**< Initialize. Can be NULL. Zero on failure. */
-		[CCode (cname = "deinit")]
+		[CCode (cname = "Deinit")]
 		public DeinitFunc deinit_func; /**< Deinitialize your allocator. Can be NULL. */
-		[CCode (cname = "malloc")]
+		[CCode (cname = "Malloc")]
 		public MallocFunc malloc_func; /**< Allocate like malloc (). */
-		[CCode (cname = "realloc")]
+		[CCode (cname = "Realloc")]
 		public ReallocFunc realloc_func; /**< Reallocate like realloc (). */
-		[CCode (cname = "free")]
+		[CCode (cname = "Free")]
 		public FreeFunc free_func;		/**< Free memory from Malloc or Realloc. */
 	}
 
@@ -646,6 +646,7 @@ namespace PHYSFS
 	* int PHYSFS_setAllocator (const PHYSFS_Allocator *allocator)
 	* Hook your own allocation routines into PhysicsFS.
 	*/
+	[CCode (cname = "PHYSFS_setAllocator")]
 	public bool set_allocator (Allocator* allocator);
 
 	/**
@@ -666,36 +667,36 @@ namespace PHYSFS
 	* PHYSFS_StringCallback
 	* Function signature for callbacks that report strings.
 	*/
-	[CCode (cname = "PHYSFS_StringCallback", has_target = false, has_typedef = false)]
-	public delegate void StringCallback (void* data, string str);
+	[CCode (cname = "PHYSFS_StringCallback", instance_pos = 0.1)]
+	public delegate void StringCallback (string str);
 
 	/**
 	* PHYSFS_EnumFilesCallback
 	* Function signature for callbacks that enumerate files.
 	*/
-	[CCode (cname = "PHYSFS_EnumFilesCallback", has_target = false, has_typedef = false)]
-	public delegate void EnumFilesCallback (void* data, string origdir, string fname);
+	[CCode (cname = "PHYSFS_EnumFilesCallback", instance_pos = 0.1)]
+	public delegate void EnumFilesCallback (string origdir, string fname);
 
 	/**
 	* void PHYSFS_getCdRomDirsCallback (PHYSFS_StringCallback c, void* d)
 	* Enumerate CD-ROM directories, using an application-defined callback.
 	*/
 	[CCode (cname = "PHYSFS_getCdRomDirsCallback")]
-	public void get_cdrom_dirs_callback (StringCallback c, void* d);
+	public void get_cdrom_dirs_callback (StringCallback c);
 
 	/**
 	* void PHYSFS_getSearchPathCallback (PHYSFS_StringCallback c, void* d)
 	* Enumerate the search path, using an application-defined callback.
 	*/
 	[CCode (cname = "PHYSFS_getSearchPathCallback")]
-	public void get_search_path_callback (StringCallback c, void* d);
+	public void get_search_path_callback (StringCallback c);
 
 	/**
 	* void PHYSFS_enumerateFilesCallback (const char *dir, PHYSFS_EnumFilesCallback c, void* d)
 	* Get a file listing of a search path's directory, using an application-defined callback.
 	*/
 	[CCode (cname = "PHYSFS_enumerateFilesCallback")]
-	public void enumerate_files_callback (string dir, EnumFilesCallback c, void* d);
+	public void enumerate_files_callback (string dir, EnumFilesCallback c);
 
 	/**
 	* void PHYSFS_utf8FromUcs4 (const uint32 *src, char *dst, uint64 len)
@@ -777,8 +778,8 @@ namespace PHYSFS
 	* PHYSFS_EnumerateCallback
 	* Function signature for callbacks that enumerate and return results.
 	*/
-	[CCode (has_target = false, has_typedef = false)]
-	public delegate EnumerateCallbackResult EnumerateCallback (void* data, string origdir, string fname);
+	[CCode (cname = "PHYSFS_EnumerateCallback", instance_pos = 0.1)]
+	public delegate EnumerateCallbackResult EnumerateCallback (string origdir, string fname);
 
 	/**
 	* int PHYSFS_enumerate (const char *dir, PHYSFS_EnumerateCallback c, void* d)
@@ -944,7 +945,7 @@ namespace PHYSFS
 	* Add an archive, contained in a memory buffer, to the search path.
 	*/
 	[CCode (cname = "PHYSFS_mountMemory")]
-	public bool mount_memory ([CCode (array_length = false)] uint8[] buf, MemoryDel? del, string new_dir, string mount_point, bool append_to_path);
+	public bool mount_memory (uint8[] buf, MemoryDel? del, string new_dir, string mount_point, bool append_to_path);
 
 	/**
 	* PHYSFS_ErrorCode
@@ -1014,8 +1015,8 @@ namespace PHYSFS
 
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate void* ArchiverOpenArchiveFunc (Io* io, string name, bool for_write, int* claimed);
-	[CCode (has_target = false, has_typedef = false)]
-	public delegate EnumerateCallbackResult ArchiverEnumerateFunc (void* opaque, string dirname, EnumerateCallback cb, string origdir, void* callbackdata);
+	[CCode (has_typedef = false)]
+	public delegate EnumerateCallbackResult ArchiverEnumerateFunc (void* opaque, string dirname, EnumerateCallback cb, string origdir);
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate Io* ArchiverOpenReadFunc (void* opaque, string fnm);
 	[CCode (has_target = false, has_typedef = false)]
@@ -1055,7 +1056,7 @@ namespace PHYSFS
 		/**
 		* List all files in (dirname).
 		*/
-		[CCode (cname = "enumerate")]
+		[CCode (cname = "enumerate", delegate_target = false)]
 		public ArchiverEnumerateFunc enumerate_func;
 
 		/**
