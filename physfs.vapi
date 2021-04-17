@@ -25,6 +25,67 @@
 namespace PHYSFS
 {
 	/**
+	* \typedef PHYSFS_uint8
+	* \brief An unsigned, 8-bit integer type.
+	*/
+	[CCode (cname = "PHYSFS_uint8", has_type_id = false)]
+	public struct Uint8 : uint8 {}
+
+	/**
+	* \typedef PHYSFS_sint8
+	* \brief A signed, 8-bit integer type.
+	*/
+	[CCode (cname = "PHYSFS_sint8", has_type_id = false)]
+	public struct Sint8 : int8 {}
+
+	/**
+	* \typedef PHYSFS_uint16
+	* \brief An unsigned, 16-bit integer type.
+	*/
+	[CCode (cname = "PHYSFS_uint16", has_type_id = false)]
+	public struct Uint16 : uint16 {}
+
+	/**
+	* \typedef PHYSFS_sint16
+	* \brief A signed, 16-bit integer type.
+	*/
+	[CCode (cname = "PHYSFS_sint16", has_type_id = false)]
+	public struct Sint16 : int16 {}
+
+	/**
+	* \typedef PHYSFS_uint32
+	* \brief An unsigned, 32-bit integer type.
+	*/
+	[CCode (cname = "PHYSFS_uint32", has_type_id = false)]
+	public struct Uint32 : uint32 {}
+
+	/**
+	* \typedef PHYSFS_sint32
+	* \brief A signed, 32-bit integer type.
+	*/
+	[CCode (cname = "PHYSFS_sint32", has_type_id = false)]
+	public struct Sint32 : int32 {}
+
+	/**
+	* \typedef PHYSFS_uint64
+	* \brief An unsigned, 64-bit integer type.
+	* \warning on platforms without any sort of 64-bit datatype, this is
+	* equivalent to PHYSFS_uint32!
+	*/
+	[CCode (cname = "PHYSFS_uint64", has_type_id = false)]
+	public struct Uint64 : uint {}
+
+	/**
+	* \typedef PHYSFS_sint64
+	* \brief A signed, 64-bit integer type.
+	* \warning on platforms without any sort of 64-bit datatype, this is
+	* equivalent to PHYSFS_sint32!
+	*/
+	[CCode (cname = "PHYSFS_sint64", has_type_id = false)]
+	public struct Sint64 : int {}
+
+
+	/**
 	* PHYSFS_ArchiveInfo
 	* Information on various PhysicsFS-supported archives.
 	*/
@@ -44,9 +105,9 @@ namespace PHYSFS
 	*/
 	[CCode (cname = "PHYSFS_Version", has_type_id = false)]
 	public struct Version {
-		public uint8 major; /**< major revision */
-		public uint8 minor; /**< minor revision */
-		public uint8 patch; /**< patchlevel */
+		public Uint8 major; /**< major revision */
+		public Uint8 minor; /**< minor revision */
+		public Uint8 patch; /**< patchlevel */
 	}
 	/**
 	* void PHYSFS_getLinkedVersion (PHYSFS_Version *ver)
@@ -221,11 +282,11 @@ namespace PHYSFS
 	public bool is_symbolic_link (string fname);
 
 	/**
-	* int64 PHYSFS_getLastModTime (const char *filename)
+	* PHYSFS_sint64 PHYSFS_getLastModTime (const char *filename)
 	* Get the last modification time of a file.
 	*/
 	[CCode (cname = "PHYSFS_getLastModTime")]
-	public int64 get_last_mod_time (string filename);
+	public Sint64 get_last_mod_time (string filename);
 
 	/* i/o stuff... */
 
@@ -261,18 +322,18 @@ namespace PHYSFS
 		public bool close ();
 
 		/**
-		* int64 PHYSFS_read (File* handle, void* buffer, uint32 objSize, uint32 objCount)
+		* PHYSFS_sint64 PHYSFS_read (File* handle, void* buffer, PHYSFS_uint32 objSize, PHYSFS_uint32 objCount)
 		* Read data from a PhysicsFS filehandle
 		*/
 		[CCode (cname = "PHYSFS_read")]
-		public int64 read ([CCode (array_length = false)] uint8[] buffer, uint32 obj_size, uint32 obj_count);
+		public Sint64 read ([CCode (array_length = false)] uint8[] buffer, Uint32 obj_size, Uint32 obj_count);
 
 		/**
-		* int64 PHYSFS_write (File* handle, const void* buffer, uint32 objSize, uint32 objCount)
+		* PHYSFS_sint64 PHYSFS_write (File* handle, const void* buffer, PHYSFS_uint32 objSize, PHYSFS_uint32 objCount)
 		* Write data to a PhysicsFS filehandle
 		*/
 		[CCode (cname = "PHYSFS_write")]
-		public int64 write ([CCode (array_length = false)] uint8[] buffer, uint32 obj_size, uint32 obj_count);
+		public Sint64 write ([CCode (array_length = false)] uint8[] buffer, Uint32 obj_size, Uint32 obj_count);
 
 		/* File position stuff... */
 
@@ -284,34 +345,34 @@ namespace PHYSFS
 		public bool eof ();
 
 		/**
-		* int64 PHYSFS_tell (File* handle)
+		* PHYSFS_sint64 PHYSFS_tell (File* handle)
 		* Determine current position within a PhysicsFS filehandle.
 		*/
 		[CCode (cname = "PHYSFS_tell")]
-		public int64 tell ();
+		public Sint64 tell ();
 
 		/**
-		* int PHYSFS_seek (File* handle, uint64 pos)
+		* int PHYSFS_seek (File* handle, PHYSFS_uint64 pos)
 		* Seek to a new position within a PhysicsFS filehandle.
 		*/
 		[CCode (cname = "PHYSFS_seek")]
-		public int seek (uint64 pos);
+		public int seek (Uint64 pos);
 
 		/**
-		* int64 FileLength (File* handle)
+		* PHYSFS_sint64 FileLength (File* handle)
 		* Get total length of a file in bytes.
 		*/
 		[CCode (cname = "PHYSFS_fileLength")]
-		public int64 length ();
+		public Sint64 length ();
 
 		/* Buffering stuff... */
 
 		/**
-		* int PHYSFS_setBuffer (File* handle, uint64 bufsize)
+		* int PHYSFS_setBuffer (File* handle, PHYSFS_uint64 bufsize)
 		* Set up buffering for a PhysicsFS file handle.
 		*/
 		[CCode (cname = "PHYSFS_setBuffer")]
-		public bool set_buffering (uint64 buf_size);
+		public bool set_buffering (Uint64 buf_size);
 
 		/**
 		* int PHYSFS_flush (File* handle)
@@ -321,186 +382,186 @@ namespace PHYSFS
 		public bool flush ();
 
 		/**
-		* int64 PHYSFS_readBytes (File* handle, void* buffer, uint64 len)
+		* PHYSFS_sint64 PHYSFS_readBytes (File* handle, void* buffer, PHYSFS_uint64 len)
 		* Read bytes from a PhysicsFS filehandle
 		*/
 		[CCode (cname = "PHYSFS_readBytes")]
-		public int64 read_bytes ([CCode (array_length = false)] uint8[] buffer, uint64 len);
+		public Sint64 read_bytes ([CCode (array_length = false)] uint8[] buffer, Uint64 len);
 
 		/**
-		* int64 PHYSFS_writeBytes (File* handle, const void* buffer, uint64 len)
+		* PHYSFS_sint64 PHYSFS_writeBytes (File* handle, const void* buffer, PHYSFS_uint64 len)
 		* Write data to a PhysicsFS filehandle
 		*/
 		[CCode (cname = "PHYSFS_writeBytes")]
-		public int64 write_bytes (uint8[] buffer);
+		public Sint64 write_bytes (uint8[] buffer);
 
 		/**
-		* int PHYSFS_readSLE16 (File* file, int16 *val)
+		* int PHYSFS_readSLE16 (File* file, PHYSFS_sint16 *val)
 		* Read and convert a signed 16-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_readSLE16")]
-		public bool read_sle16 (out int16 val);
+		public bool read_sle16 (out Sint16 val);
 
 		/**
-		* int PHYSFS_readULE16 (File* file, uint16 *val)
+		* int PHYSFS_readULE16 (File* file, PHYSFS_uint16 *val)
 		* Read and convert an unsigned 16-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_readULE16")]
-		public bool read_ule16 (out uint16 val);
+		public bool read_ule16 (out Uint16 val);
 
 		/**
-		* int PHYSFS_readSBE16 (File* file, int16 *val)
+		* int PHYSFS_readSBE16 (File* file, PHYSFS_sint16 *val)
 		* Read and convert a signed 16-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_readSBE16")]
-		public bool read_sbe16 (out int16 val);
+		public bool read_sbe16 (out Sint16 val);
 
 		/**
-		* int PHYSFS_readUBE16 (File* file, uint16 *val)
+		* int PHYSFS_readUBE16 (File* file, PHYSFS_uint16 *val)
 		* Read and convert an unsigned 16-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_readUBE16")]
-		public bool read_ube16 (out uint16 val);
+		public bool read_ube16 (out Uint16 val);
 
 		/**
-		* int PHYSFS_readSLE32 (File* file, int32 *val)
+		* int PHYSFS_readSLE32 (File* file, PHYSFS_sint32 *val)
 		* Read and convert a signed 32-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_readSLE32")]
-		public bool read_sle32 (out int32 val);
+		public bool read_sle32 (out Sint32 val);
 
 		/**
-		* int PHYSFS_readULE32 (File* file, uint32 *val)
+		* int PHYSFS_readULE32 (File* file, PHYSFS_uint32 *val)
 		* Read and convert an unsigned 32-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_readULE32")]
-		public bool read_ule32 (out uint32 val);
+		public bool read_ule32 (out Uint32 val);
 
 		/**
-		* int PHYSFS_readSBE32 (File* file, int32 *val)
+		* int PHYSFS_readSBE32 (File* file, PHYSFS_sint32 *val)
 		* Read and convert a signed 32-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_readSBE32")]
-		public bool read_sbe32 (out int32 val);
+		public bool read_sbe32 (out Sint32 val);
 
 		/**
-		* int PHYSFS_readUBE32 (File* file, uint32 *val)
+		* int PHYSFS_readUBE32 (File* file, PHYSFS_uint32 *val)
 		* Read and convert an unsigned 32-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_readUBE32")]
-		public bool read_ube32 (out uint32 val);
+		public bool read_ube32 (out Uint32 val);
 
 		/**
-		* int PHYSFS_readSLE64 (File* file, int64 *val)
+		* int PHYSFS_readSLE64 (File* file, PHYSFS_sint64 *val)
 		* Read and convert a signed 64-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_readSLE64")]
-		public bool read_sle64 (out int64 val);
+		public bool read_sle64 (out Sint64 val);
 
 		/**
-		* int PHYSFS_readULE64 (File* file, uint64 *val)
+		* int PHYSFS_readULE64 (File* file, PHYSFS_uint64 *val)
 		* Read and convert an unsigned 64-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_readULE64")]
-		public bool read_ule64 (out uint64 val);
+		public bool read_ule64 (out Uint64 val);
 
 		/**
-		* int PHYSFS_readSBE64 (File* file, int64 *val)
+		* int PHYSFS_readSBE64 (File* file, PHYSFS_sint64 *val)
 		* Read and convert a signed 64-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_readSBE64")]
-		public bool read_sbe64 (out int64 val);
+		public bool read_sbe64 (out Sint64 val);
 
 		/**
-		* int PHYSFS_readUBE64 (File* file, uint64 *val)
+		* int PHYSFS_readUBE64 (File* file, PHYSFS_uint64 *val)
 		* Read and convert an unsigned 64-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_readUBE64")]
-		public bool read_ube64 (out uint64 val);
+		public bool read_ube64 (out Uint64 val);
 
 		/**
-		* int PHYSFS_writeSLE16 (File* file, int16 val)
+		* int PHYSFS_writeSLE16 (File* file, PHYSFS_sint16 val)
 		* Convert and write a signed 16-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeSLE16")]
-		public bool write_sle16 (int16 val);
+		public bool write_sle16 (Sint16 val);
 
 		/**
-		* int PHYSFS_writeULE16 (File* file, uint16 val)
+		* int PHYSFS_writeULE16 (File* file, PHYSFS_uint16 val)
 		* Convert and write an unsigned 16-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeULE16")]
-		public bool write_ule16 (uint16 val);
+		public bool write_ule16 (Uint16 val);
 
 		/**
-		* int PHYSFS_writeSBE16 (File* file, int16 val)
+		* int PHYSFS_writeSBE16 (File* file, PHYSFS_sint16 val)
 		* Convert and write a signed 16-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeSBE16")]
-		public bool write_sbe16 (int16 val);
+		public bool write_sbe16 (Sint16 val);
 
 		/**
-		* int PHYSFS_writeUBE16 (File* file, uint16 val)
+		* int PHYSFS_writeUBE16 (File* file, PHYSFS_uint16 val)
 		* Convert and write an unsigned 16-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeUBE16")]
-		public bool write_ube16 (uint16 val);
+		public bool write_ube16 (Uint16 val);
 
 		/**
-		* int PHYSFS_writeSLE32 (File* file, int32 val)
+		* int PHYSFS_writeSLE32 (File* file, PHYSFS_sint32 val)
 		* Convert and write a signed 32-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeSLE32")]
-		public bool write_sle32 (int32 val);
+		public bool write_sle32 (Sint32 val);
 
 		/**
-		* int PHYSFS_writeULE32 (File* file, uint32 val)
+		* int PHYSFS_writeULE32 (File* file, PHYSFS_uint32 val)
 		* Convert and write an unsigned 32-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeULE32")]
-		public bool write_ule32 (uint32 val);
+		public bool write_ule32 (Uint32 val);
 
 		/**
-		* int PHYSFS_writeSBE32 (File* file, int32 val)
+		* int PHYSFS_writeSBE32 (File* file, PHYSFS_sint32 val)
 		* Convert and write a signed 32-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeSBE32")]
-		public bool write_sbe32 (int32 val);
+		public bool write_sbe32 (Sint32 val);
 
 		/**
-		* int PHYSFS_writeUBE32 (File* file, uint32 val)
+		* int PHYSFS_writeUBE32 (File* file, PHYSFS_uint32 val)
 		* Convert and write an unsigned 32-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeUBE32")]
-		public bool write_ube32 (uint32 val);
+		public bool write_ube32 (Uint32 val);
 
 		/**
-		* int PHYSFS_writeSLE64 (File* file, int64 val)
+		* int PHYSFS_writeSLE64 (File* file, PHYSFS_sint64 val)
 		* Convert and write a signed 64-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeSLE64")]
-		public bool write_sle64 (int64 val);
+		public bool write_sle64 (Sint64 val);
 
 		/**
-		* int PHYSFS_writeULE64 (File* file, uint64 val)
+		* int PHYSFS_writeULE64 (File* file, PHYSFS_uint64 val)
 		* Convert and write an unsigned 64-bit littleendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeULE64")]
-		public bool write_ule64 (uint64 val);
+		public bool write_ule64 (Uint64 val);
 
 		/**
-		* int PHYSFS_writeSBE64 (File* file, int64 val)
+		* int PHYSFS_writeSBE64 (File* file, PHYSFS_sint64 val)
 		* Convert and write a signed 64-bit bigending value.
 		*/
 		[CCode (cname = "PHYSFS_writeSBE64")]
-		public bool write_sbe64 (int64 val);
+		public bool write_sbe64 (Sint64 val);
 
 		/**
-		* int PHYSFS_writeUBE64 (File* file, uint64 val)
+		* int PHYSFS_writeUBE64 (File* file, PHYSFS_uint64 val)
 		* Convert and write an unsigned 64-bit bigendian value.
 		*/
 		[CCode (cname = "PHYSFS_writeUBE64")]
-		public bool write_ube64 (uint64 val);
+		public bool write_ube64 (Uint64 val);
 
 		/**
 		* int PHYSFS_mountHandle (File* file, const char *new_dir, const char *mountPoint, int appendToPath)
@@ -513,90 +574,90 @@ namespace PHYSFS
 	/* Byteorder stuff... */
 
 	/**
-	* int16 PHYSFS_swapSLE16 (int16 val)
+	* PHYSFS_sint16 PHYSFS_swapSLE16 (PHYSFS_sint16 val)
 	* Swap littleendian signed 16 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapSLE16")]
-	public int16 swap_sle16 (int16 val);
+	public Sint16 swap_sle16 (Sint16 val);
 
 
 	/**
-	* uint16 PHYSFS_swapULE16 (uint16 val)
+	* PHYSFS_uint16 PHYSFS_swapULE16 (PHYSFS_uint16 val)
 	* Swap littleendian unsigned 16 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapULE16")]
-	public uint16 swap_ule16 (uint16 val);
+	public Uint16 swap_ule16 (Uint16 val);
 
 	/**
-	* int32 PHYSFS_swapSLE32 (int32 val)
+	* PHYSFS_sint32 PHYSFS_swapSLE32 (PHYSFS_sint32 val)
 	* Swap littleendian signed 32 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapSLE32")]
-	public int32 swap_sle32 (int32 val);
+	public Sint32 swap_sle32 (Sint32 val);
 
 
 	/**
-	* uint32 PHYSFS_swapULE32 (uint32 val)
+	* PHYSFS_uint32 PHYSFS_swapULE32 (PHYSFS_uint32 val)
 	* Swap littleendian unsigned 32 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapULE32")]
-	public uint32 swap_ule32 (uint32 val);
+	public Uint32 swap_ule32 (Uint32 val);
 
 	/**
-	* int64 PHYSFS_swapSLE64 (int64 val)
+	* PHYSFS_sint64 PHYSFS_swapSLE64 (PHYSFS_sint64 val)
 	* Swap littleendian signed 64 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapSLE64")]
-	public int64 swap_sle64 (int64 val);
+	public Sint64 swap_sle64 (Sint64 val);
 
 	/**
-	* uint64 PHYSFS_swapULE64 (uint64 val)
+	* PHYSFS_uint64 PHYSFS_swapULE64 (PHYSFS_uint64 val)
 	* Swap littleendian unsigned 64 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapULE64")]
-	public uint64 swap_ule64 (uint64 val);
+	public Uint64 swap_ule64 (Uint64 val);
 
 	/**
-	* int16 PHYSFS_swapSBE16 (int16 val)
+	* PHYSFS_sint16 PHYSFS_swapSBE16 (PHYSFS_sint16 val)
 	* Swap bigendian signed 16 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapSBE16")]
-	public int16 swap_sbe16 (int16 val);
+	public Sint16 swap_sbe16 (Sint16 val);
 
 	/**
-	* uint16 PHYSFS_swapUBE16 (uint16 val)
+	* PHYSFS_uint16 PHYSFS_swapUBE16 (PHYSFS_uint16 val)
 	* Swap bigendian unsigned 16 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapUBE16")]
-	public uint16 swap_ube16 (uint16 val);
+	public Uint16 swap_ube16 (Uint16 val);
 
 	/**
-	* int32 PHYSFS_swapSBE32 (int32 val)
+	* PHYSFS_sint32 PHYSFS_swapSBE32 (PHYSFS_sint32 val)
 	* Swap bigendian signed 32 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapSBE32")]
-	public int32 swap_sbe32 (int32 val);
+	public Sint32 swap_sbe32 (Sint32 val);
 
 	/**
-	* uint32 PHYSFS_swapUBE32 (uint32 val)
+	* PHYSFS_uint32 PHYSFS_swapUBE32 (PHYSFS_uint32 val)
 	* Swap bigendian unsigned 32 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapUBE32")]
-	public uint32 swap_ube32 (uint32 val);
+	public Uint32 swap_ube32 (Uint32 val);
 
 	/**
-	* int64 PHYSFS_swapSBE64 (int64 val)
+	* PHYSFS_sint64 PHYSFS_swapSBE64 (PHYSFS_sint64 val)
 	* Swap bigendian signed 64 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapSBE64")]
-	public int64 swap_sbe64 (int64 val);
+	public Sint64 swap_sbe64 (Sint64 val);
 
 	/**
-	* uint64 PHYSFS_swapUBE64 (uint64 val)
+	* PHYSFS_uint64 PHYSFS_swapUBE64 (PHYSFS_uint64 val)
 	* Swap bigendian unsigned 64 to platform's native byte order.
 	*/
 	[CCode (cname = "PHYSFS_swapUBE64")]
-	public uint64 swap_ube64 (uint64 val);
+	public Uint64 swap_ube64 (Uint64 val);
 
 	/* Everything above this line is part of the PhysicsFS 1.0 API. */
 
@@ -619,9 +680,9 @@ namespace PHYSFS
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate void DeinitFunc (); /**< Deinitialize your allocator. Can be NULL. */
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate void* MallocFunc (uint64 size); /**< Allocate like malloc (). */
+	public delegate void* MallocFunc (Uint64 size); /**< Allocate like malloc (). */
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate void* ReallocFunc (void* dst, uint64 size); /**< Reallocate like realloc (). */
+	public delegate void* ReallocFunc (void* dst, Uint64 size); /**< Reallocate like realloc (). */
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate void FreeFunc (void* pointer); /**< Free memory from Malloc or Realloc. */
 	/**
@@ -699,48 +760,48 @@ namespace PHYSFS
 	public void enumerate_files_callback (string dir, EnumFilesCallback c);
 
 	/**
-	* void PHYSFS_utf8FromUcs4 (const uint32 *src, char *dst, uint64 len)
+	* void PHYSFS_utf8FromUcs4 (const PHYSFS_uint32 *src, char *dst, PHYSFS_uint64 len)
 	* Convert a UCS-4 string to a UTF-8 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromUcs4")]
-	public void utf8_from_ucs4 ([CCode (array_length = false)] uint32[] src, out string dst, uint64 len);
+	public void utf8_from_ucs4 ([CCode (array_length = false)] Uint32[] src, out string dst, Uint64 len);
 
 	/**
-	* void PHYSFS_utf8ToUcs4 (const char *src, uint32 *dst, uint64 len)
+	* void PHYSFS_utf8ToUcs4 (const char *src, PHYSFS_uint32 *dst, PHYSFS_uint64 len)
 	* Convert a UTF-8 string to a UCS-4 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8ToUcs4")]
-	public void utf8_to_ucs4 (string src, [CCode (array_length = false)] uint32[] dst, uint64 len);
+	public void utf8_to_ucs4 (string src, [CCode (array_length = false)] Uint32[] dst, Uint64 len);
 
 	/**
-	* void PHYSFS_utf8FromUcs2 (const uint16 *src, char *dst, uint64 len)
+	* void PHYSFS_utf8FromUcs2 (const PHYSFS_uint16 *src, char *dst, PHYSFS_uint64 len)
 	* Convert a UCS-2 string to a UTF-8 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromUcs2")]
-	public void utf8_from_ucs2 ([CCode (array_length = false)] uint16[] src, out string dst, uint64 len);
+	public void utf8_from_ucs2 ([CCode (array_length = false)] Uint16[] src, out string dst, Uint64 len);
 
 	/**
-	* PHYSFS_utf8ToUcs2 (const char *src, uint16 *dst, uint64 len)
+	* PHYSFS_utf8ToUcs2 (const char *src, PHYSFS_uint16 *dst, PHYSFS_uint64 len)
 	* Convert a UTF-8 string to a UCS-2 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8ToUcs2")]
-	public void utf8_to_ucs2 (string src, [CCode (array_length = false)] uint16[] dst, uint64 len);
+	public void utf8_to_ucs2 (string src, [CCode (array_length = false)] Uint16[] dst, Uint64 len);
 
 	/**
-	* void PHYSFS_utf8FromLatin1 (const char *src, char *dst, uint64 len)
+	* void PHYSFS_utf8FromLatin1 (const char *src, char *dst, PHYSFS_uint64 len)
 	* Convert a UTF-8 string to a Latin1 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromLatin1")]
-	public void utf8_from_latin1 (string src, [CCode (array_length = false)] uint8[] dst, uint64 len);
+	public void utf8_from_latin1 (string src, [CCode (array_length = false)] uint8[] dst, Uint64 len);
 
 	/* Everything above this line is part of the PhysicsFS 2.0 API. */
 
 	/**
-	* int PHYSFS_caseFold (const uint32 from, uint32 *to)
+	* int PHYSFS_caseFold (const PHYSFS_uint32 from, PHYSFS_uint32 *to)
 	* "Fold" a Unicode codepoint to a lowercase equivalent.
 	*/
 	[CCode (cname = "PHYSFS_caseFold")]
-	public int case_fold (uint32 from, out uint32 to);
+	public int case_fold (Uint32 from, out Uint32 to);
 
 	/**
 	* int PHYSFS_utf8stricmp (const char *str1, const char *str2)
@@ -750,18 +811,18 @@ namespace PHYSFS
 	public int utf8_stricmp (string str1, string str2);
 
 	/**
-	* int PHYSFS_utf16stricmp (const uint16 *str1, const uint16 *str2)
+	* int PHYSFS_utf16stricmp (const PHYSFS_uint16 *str1, const PHYSFS_uint16 *str2)
 	* Case-insensitive compare of two UTF-16 strings.
 	*/
 	[CCode (cname = "PHYSFS_utf16stricmp")]
-	public int utf16_stricmp ([CCode (array_length = false)] uint16[] str1, [CCode (array_length = false)] uint16[] str2);
+	public int utf16_stricmp ([CCode (array_length = false)] Uint16[] str1, [CCode (array_length = false)] Uint16[] str2);
 
 	/**
-	* int PHYSFS_ucs4stricmp (const uint32 *str1, const uint32 *str2)
+	* int PHYSFS_ucs4stricmp (const PHYSFS_uint32 *str1, const PHYSFS_uint32 *str2)
 	* Case-insensitive compare of two UCS-4 strings.
 	*/
 	[CCode (cname = "PHYSFS_ucs4stricmp")]
-	public int ucs4_stricmp ([CCode (array_length = false)] uint32[] str1, [CCode (array_length = false)] uint32[] str2);
+	public int ucs4_stricmp ([CCode (array_length = false)] Uint32[] str1, [CCode (array_length = false)] Uint32[] str2);
 
 	/**
 	* PHYSFS_EnumerateCallback
@@ -820,10 +881,10 @@ namespace PHYSFS
 	*/
 	[CCode (cname = "PHYSFS_Stat", has_type_id = false)]
 	public struct Stat {
-		public int64 filesize; /**< size in bytes, -1 for non-files and unknown */
-		public int64 modtime; /**< last modification time */
-		public int64 createtime; /**< like modtime, but for file creation time */
-		public int64 accesstime; /**< like modtime, but for file access time */
+		public Sint64 filesize; /**< size in bytes, -1 for non-files and unknown */
+		public Sint64 modtime; /**< last modification time */
+		public Sint64 createtime; /**< like modtime, but for file creation time */
+		public Sint64 accesstime; /**< like modtime, but for file access time */
 		public FileType filetype; /**< File? Directory? Symlink? */
 		public bool readonly; /**< non-zero if read only, zero if writable. */
 	}
@@ -836,29 +897,29 @@ namespace PHYSFS
 	public bool stat (string fname, out Stat stat);
 
 	/**
-	* void PHYSFS_utf8FromUtf16 (const uint16 *src, char *dst, uint64 len)
+	* void PHYSFS_utf8FromUtf16 (const PHYSFS_uint16 *src, char *dst, PHYSFS_uint64 len)
 	* Convert a UTF-16 string to a UTF-8 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromUtf16")]
-	public void utf8_from_utf16 ([CCode (array_length = false)] uint16[] src, out string dst, uint64 len);
+	public void utf8_from_utf16 ([CCode (array_length = false)] Uint16[] src, out string dst, Uint64 len);
 
 	/**
-	* PHYSFS_utf8ToUtf16 (const char *src, uint16 *dst, uint64 len)
+	* PHYSFS_utf8ToUtf16 (const char *src, PHYSFS_uint16 *dst, PHYSFS_uint64 len)
 	* Convert a UTF-8 string to a UTF-16 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8ToUtf16")]
-	public void utf8_to_utf16 (string src, [CCode (array_length = false)] uint16[] dst, uint64 len);
+	public void utf8_to_utf16 (string src, [CCode (array_length = false)] Uint16[] dst, Uint64 len);
 
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate int64 IoReadFunc (Io* io, void* buf, uint64 len);
+	public delegate Sint64 IoReadFunc (Io* io, void* buf, Uint64 len);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate int64 IoWriteFunc (Io *io, void* buffer, uint64 len);
+	public delegate Sint64 IoWriteFunc (Io *io, void* buffer, Uint64 len);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate bool IoSeekFunc (Io *io, uint64 offset);
+	public delegate bool IoSeekFunc (Io *io, Uint64 offset);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate int64 IoTellFunc (Io *io);
+	public delegate Sint64 IoTellFunc (Io *io);
 	[CCode (has_target = false, has_typedef = false)]
-	public delegate int64 IoLengthFunc (Io *io);
+	public delegate Sint64 IoLengthFunc (Io *io);
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate Io* IoDuplicateFunc (Io *io);
 	[CCode (has_target = false, has_typedef = false)]
@@ -875,7 +936,7 @@ namespace PHYSFS
 		/**
 		* Binary compatibility information.
 		*/
-		public uint32 version;
+		public Uint32 version;
 
 		/**
 		* Instance data for this struct.
@@ -941,7 +1002,7 @@ namespace PHYSFS
 	[CCode (has_target = false, has_typedef = false)]
 	public delegate void MemoryDel (void* memory);
 	/**
-	* int PHYSFS_mountMemory (const void* buf, uint64 len, void (*del) (void* ), const char *new_dir, const char *mountPoint, int appendToPath)
+	* int PHYSFS_mountMemory (const void* buf, PHYSFS_uint64 len, void (*del) (void* ), const char *new_dir, const char *mountPoint, int appendToPath)
 	* Add an archive, contained in a memory buffer, to the search path.
 	*/
 	[CCode (cname = "PHYSFS_mountMemory")]
@@ -1040,7 +1101,7 @@ namespace PHYSFS
 		/**
 		* Binary compatibility information.
 		*/
-		public uint32 version;
+		public Uint32 version;
 
 		/**
 		* Basic info about this archiver.
