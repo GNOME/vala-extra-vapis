@@ -764,35 +764,35 @@ namespace PHYSFS
 	* Convert a UCS-4 string to a UTF-8 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromUcs4")]
-	public void utf8_from_ucs4 ([CCode (array_length = false)] Uint32[] src, out string dst, Uint64 len);
+	public void utf8_from_ucs4 ([CCode (array_length = false)] Uint32[] src, [CCode (array_length_cname = "len", array_length_type = "PHYSFS_uint64")] uint8[] dst);
 
 	/**
 	* void PHYSFS_utf8ToUcs4 (const char *src, PHYSFS_uint32 *dst, PHYSFS_uint64 len)
 	* Convert a UTF-8 string to a UCS-4 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8ToUcs4")]
-	public void utf8_to_ucs4 (string src, [CCode (array_length = false)] Uint32[] dst, Uint64 len);
+	public void utf8_to_ucs4 (string src, [CCode (array_length_cname = "len", array_length_type = "PHYSFS_uint64")] Uint32[] dst);
 
 	/**
 	* void PHYSFS_utf8FromUcs2 (const PHYSFS_uint16 *src, char *dst, PHYSFS_uint64 len)
 	* Convert a UCS-2 string to a UTF-8 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromUcs2")]
-	public void utf8_from_ucs2 ([CCode (array_length = false)] Uint16[] src, out string dst, Uint64 len);
+	public void utf8_from_ucs2 ([CCode (array_length = false)] Uint16[] src, [CCode (array_length_cname = "len", array_length_type = "PHYSFS_uint64")] uint8[] dst);
 
 	/**
 	* PHYSFS_utf8ToUcs2 (const char *src, PHYSFS_uint16 *dst, PHYSFS_uint64 len)
 	* Convert a UTF-8 string to a UCS-2 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8ToUcs2")]
-	public void utf8_to_ucs2 (string src, [CCode (array_length = false)] Uint16[] dst, Uint64 len);
+	public void utf8_to_ucs2 (string src, [CCode (array_length_cname = "len", array_length_type = "PHYSFS_uint64")] Uint16[] dst);
 
 	/**
 	* void PHYSFS_utf8FromLatin1 (const char *src, char *dst, PHYSFS_uint64 len)
 	* Convert a UTF-8 string to a Latin1 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromLatin1")]
-	public void utf8_from_latin1 (string src, [CCode (array_length = false)] uint8[] dst, Uint64 len);
+	public void utf8_from_latin1 (string src, [CCode (array_length_cname = "len", array_length_type = "PHYSFS_uint64")] uint8[] dst);
 
 	/* Everything above this line is part of the PhysicsFS 2.0 API. */
 
@@ -901,7 +901,7 @@ namespace PHYSFS
 	* Convert a UTF-16 string to a UTF-8 string.
 	*/
 	[CCode (cname = "PHYSFS_utf8FromUtf16")]
-	public void utf8_from_utf16 ([CCode (array_length = false)] Uint16[] src, out string dst, Uint64 len);
+	public void utf8_from_utf16 ([CCode (array_length = false)] Uint16[] src, [CCode (array_length_cname = "len", array_length_type = "PHYSFS_uint64")] uint8[] dst);
 
 	/**
 	* PHYSFS_utf8ToUtf16 (const char *src, PHYSFS_uint16 *dst, PHYSFS_uint64 len)
