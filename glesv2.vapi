@@ -596,7 +596,7 @@ namespace GLES2
     public void glGetShaderInfoLog (GLuint shader, GLsizei bufsize, GLsizei* length, GLchar* infolog);
     public void glGetShaderPrecisionFormat (GLenum shadertype, GLenum precisiontype, GLint* range, GLint* precision);
     public void glGetShaderSource (GLuint shader, GLsizei bufsize, GLsizei* length, GLchar* source);
-    public string glGetString (GLenum name);
+    public unowned string glGetString (GLenum name);
     public void glGetTexParameterfv (GLenum target, GLenum pname, GLfloat* params);
     public void glGetTexParameteriv (GLenum target, GLenum pname, GLint* params);
     public void glGetUniformfv (GLuint program, GLint location, GLfloat* params);
