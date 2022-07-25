@@ -1,6 +1,7 @@
 /* gpg-error.vapi
  *
  * Copyright (C) 2009 Sebastian Reichel <sre@ring0.de>
+ * Copyright (C) 2022 Itay Grudev <itay+git2022@grudev.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +25,22 @@
 
 [CCode (cheader_filename = "gpg-error.h")]
 namespace GPGError {
+	/**
+	 * The error value type gpg_error_t
+	 */
+	[SimpleType]
+	[CCode (cname = "gpg_error_t", has_type_id = false)]
+	public struct Error {
+		public GPGError.ErrorCode code {
+			[CCode (cname = "gpg_err_code")]
+			get;
+		}
+	}
 
-	[CCode (cname = "gpg_err_code_t", cprefix = "GPG_ERR_")]
+	/**
+	 * The error code type gpg_err_code_t.
+	 */
+	[CCode (cname = "gpg_err_code_t", cprefix = "GPG_ERR_", has_type_id = false)]
 	public enum ErrorCode {
 		NO_ERROR,
 		GENERAL,

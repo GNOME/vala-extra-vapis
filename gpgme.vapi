@@ -1,6 +1,7 @@
 /* libgpgme.vapi
  *
  * Copyright (C) 2009 Sebastian Reichel <sre@ring0.de>
+ * Copyright (C) 2022 Itay Grudev <itay+git2022@grudev.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -235,7 +236,7 @@ namespace GPG {
 		 */
 		long expires;
 
-		GPGError.ErrorCode status;
+		GPGError.Error status;
 
 		string uid;
 		string name;
@@ -323,7 +324,7 @@ namespace GPG {
 		Recipient *next;
 		string keyid;
 		PublicKeyAlgorithm pubkey_algo;
-		GPGError.ErrorCode status;
+		GPGError.Error status;
 	}
 
 	/**
@@ -333,7 +334,7 @@ namespace GPG {
 	public struct InvalidKey {
 		InvalidKey *next;
 		string fpr;
-		GPGError.ErrorCode reason;
+		GPGError.Error reason;
 	}
 
 	/**
@@ -359,7 +360,7 @@ namespace GPG {
 		/**
 		 * The Error status of the signature
 		 */
-		GPGError.ErrorCode status;
+		GPGError.Error status;
 
 		/**
 		 * Notation data and policy URLs
@@ -399,7 +400,7 @@ namespace GPG {
 		/**
 		 * Validity reason
 		 */
-		GPGError.ErrorCode validity_reason;
+		GPGError.Error validity_reason;
 
 		/**
 		 * public key algorithm used to create the signature
@@ -752,9 +753,9 @@ namespace GPG {
 		 * Create a new context, returns Error Status Code
 		 */
 		[CCode (cname = "gpgme_new")]
-		public static GPGError.ErrorCode Context(out Context ctx);
+		public static GPGError.Error Context(out Context ctx);
 
-		public GPGError.ErrorCode set_protocol(Protocol p);
+		public GPGError.Error set_protocol(Protocol p);
 		public Protocol get_protocol();
 
 		public void set_armor(bool yes);
@@ -763,7 +764,7 @@ namespace GPG {
 		public void set_textmode(bool yes);
 		public bool get_textmode();
 
-		public GPGError.ErrorCode set_keylist_mode(KeylistMode mode);
+		public GPGError.Error set_keylist_mode(KeylistMode mode);
 		public KeylistMode get_keylist_mode();
 
 		/**
@@ -788,7 +789,7 @@ namespace GPG {
 		 */
 		public void get_passphrase_cb(out passphrase_callback cb, out void* hook_value);
 
-		public GPGError.ErrorCode set_locale(int category, string val);
+		public GPGError.Error set_locale(int category, string val);
 
 		/**
 		 * Get information about the configured engines. The returned data is valid
@@ -802,7 +803,7 @@ namespace GPG {
 		 * be free'd after this calls, because they are not copied.
 		 */
 		[CCode (cname = "gpgme_ctx_set_engine_info")]
-		public GPGError.ErrorCode set_engine_info(Protocol proto, string file_name, string home_dir);
+		public GPGError.Error set_engine_info(Protocol proto, string file_name, string home_dir);
 
 		/**
 		 * Delete all signers
@@ -812,7 +813,7 @@ namespace GPG {
 		/**
 		 * Add key to list of signers
 		 */
-		public GPGError.ErrorCode signers_add(Key key);
+		public GPGError.Error signers_add(Key key);
 
 		/**
 		 * Get the n-th signer's key
@@ -830,7 +831,7 @@ namespace GPG {
 		 * flag is forced to be true for notation data and false
 		 * for policy URLs.
 		 */
-		public GPGError.ErrorCode sig_notation_add(string name, string val, SigNotationFlags flags);
+		public GPGError.Error sig_notation_add(string name, string val, SigNotationFlags flags);
 
 		/**
 		 * Get sig notations
@@ -841,13 +842,13 @@ namespace GPG {
 		 * Get key with the fingerprint FPR from the crypto backend.
 		 * If SECRET is true, get the secret key.
 		 */
-		public GPGError.ErrorCode get_key(string fpr, out Key key, bool secret);
+		public GPGError.Error get_key(string fpr, out Key key, bool secret);
 
 		/**
 		 * process the pending operation and, if hang is true, wait for
 		 * the pending operation to finish.
 		 */
-		public Context* wait(out GPGError.ErrorCode status, bool hang);
+		public Context* wait(out GPGError.Error status, bool hang);
 
 		/**
 		 * Retrieve a pointer to the results of the signing operation
@@ -857,7 +858,7 @@ namespace GPG {
 		/**
 		 * Sign the plaintext PLAIN and store the signature in SIG.
 		 */
-		public GPGError.ErrorCode op_sign(Data plain, Data sig, SigMode mode);
+		public GPGError.Error op_sign(Data plain, Data sig, SigMode mode);
 
 		/**
 		 * Retrieve a pointer to the result of the verify operation
@@ -867,7 +868,7 @@ namespace GPG {
 		/**
 		 * Verify that SIG is a valid signature for SIGNED_TEXT.
 		 */
-		public GPGError.ErrorCode op_verify(Data sig, Data signed_text, Data? plaintext);
+		public GPGError.Error op_verify(Data sig, Data signed_text, Data? plaintext);
 
 		/**
 		 * Retrieve a pointer to the result of the encrypt operation
@@ -878,7 +879,7 @@ namespace GPG {
 		 * Encrypt plaintext PLAIN for the recipients RECP and store the
 		 * resulting ciphertext in CIPHER.
 		 */
-		public GPGError.ErrorCode op_encrypt([CCode (array_length = false)] Key[] recp, EncryptFlags flags, Data plain, Data cipher);
+		public GPGError.Error op_encrypt([CCode (array_length = false)] Key[] recp, EncryptFlags flags, Data plain, Data cipher);
 
 		/**
 		 * Retrieve a pointer to the result of the decrypt operation
@@ -889,18 +890,18 @@ namespace GPG {
 		 * Decrypt ciphertext CIPHER and store the resulting plaintext
 		 * in PLAIN.
 		 */
-		public GPGError.ErrorCode op_decrypt(Data cipher, Data plain);
+		public GPGError.Error op_decrypt(Data cipher, Data plain);
 
 		/**
 		 * Export the keys found by PATTERN into KEYDATA. If PATTERN is
 		 * NULL all keys will be exported.
 		 */
-		public GPGError.ErrorCode op_export(string? pattern, ExportMode mode, Data keydata);
+		public GPGError.Error op_export(string? pattern, ExportMode mode, Data keydata);
 
 		/**
 		 * Import the keys in KEYDATA.
 		 */
-		public GPGError.ErrorCode op_import(Data keydata);
+		public GPGError.Error op_import(Data keydata);
 
 		/**
 		 * Get result of last op_import.
@@ -925,7 +926,7 @@ namespace GPG {
 		 * pointer, and passes through any errors that are reported by the crypto engine
 		 * support routines.
 		 */
-		public GPGError.ErrorCode op_keylist_start(string? pattern = null, int secret_only = 0);
+		public GPGError.Error op_keylist_start(string? pattern = null, int secret_only = 0);
 
 		/**
 		 * returns the next key in the list created by a previous op_keylist_start()
@@ -938,7 +939,7 @@ namespace GPG {
 		 * not a valid pointer, and GPG_ERR_ENOMEM if there is not enough memory for
 		 * the operation.
 		 */
-		public GPGError.ErrorCode op_keylist_next(out Key key);
+		public GPGError.Error op_keylist_next(out Key key);
 
 		/**
 		 * ends a pending key list operation in the context.
@@ -950,7 +951,7 @@ namespace GPG {
 		 * pointer, and GPG_ERR_ENOMEM if at some time during the operation there was
 		 * not enough memory available.
 		 */
-		public GPGError.ErrorCode op_keylist_end();
+		public GPGError.Error op_keylist_end();
 
 		/**
 		 * The function op_keylist_result() returns a KeylistResult holding the result of
@@ -1010,7 +1011,7 @@ namespace GPG {
 		 * If the import was not successful, this is the error value that caused the
 		 * import to fail. Otherwise the error code is GPG_ERR_NO_ERROR.
 		 */
-		public GPGError.ErrorCode result;
+		public GPGError.Error result;
 
 		/**
 		 * Flags what parts of the key have been imported. May be 0, if the key has
@@ -1112,7 +1113,7 @@ namespace GPG {
 		 * Create a new data buffer, returns Error Status Code.
 		 */
 		[CCode (cname = "gpgme_data_new")]
-		public static GPGError.ErrorCode create(out Data d);
+		public static GPGError.Error create(out Data d);
 
 		/**
 		 * Create a new data buffer filled with SIZE bytes starting
@@ -1121,7 +1122,7 @@ namespace GPG {
 		 * when needed. Returns Error Status Code.
 		 */
 		[CCode (cname = "gpgme_data_new_from_mem")]
-		public static GPGError.ErrorCode create_from_memory(out Data d, uint8[] buffer, bool copy);
+		public static GPGError.Error create_from_memory(out Data d, uint8[] buffer, bool copy);
 
 		/**
 		 * Create a new data buffer filled with the content of the file.
@@ -1129,7 +1130,7 @@ namespace GPG {
 		 * create_from_fd or create_from stream instead.
 		 */
 		[CCode (cname = "gpgme_data_new_from_file")]
-		public static GPGError.ErrorCode create_from_file(out Data d, string filename, int copy = 1);
+		public static GPGError.Error create_from_file(out Data d, string filename, int copy = 1);
 
 
 		/**
@@ -1167,7 +1168,7 @@ namespace GPG {
 		/**
 		 * Set the encoding attribute of the buffer to ENC
 		 */
-		public GPGError.ErrorCode set_encoding(DataEncoding enc);
+		public GPGError.Error set_encoding(DataEncoding enc);
 	}
 
 	[CCode (cname = "gpgme_get_protocol_name")]
@@ -1180,7 +1181,7 @@ namespace GPG {
 	public unowned string get_hash_algorithm_name(HashAlgorithm algo);
 
 	[CCode (cname = "gpgme_passphrase_cb_t", has_target = false)]
-	public delegate GPGError.ErrorCode passphrase_callback(void* hook, string uid_hint, string passphrase_info, bool prev_was_bad, int fd);
+	public delegate GPGError.Error passphrase_callback(void* hook, string uid_hint, string passphrase_info, bool prev_was_bad, int fd);
 
 	/**
 	 * Get version of libgpgme
@@ -1194,14 +1195,14 @@ namespace GPG {
 	 * available.
 	 */
 	[CCode (cname = "gpgme_engine_check_version")]
-	public GPGError.ErrorCode engine_check_version(Protocol proto);
+	public GPGError.Error engine_check_version(Protocol proto);
 
 	/**
 	 * Get information about the configured engines. The returned data is valid
 	 * until the next set_engine_info() call.
 	 */
-	[CCode (cname = "gpgme_get_engine_information")]
-	public GPGError.ErrorCode get_engine_information(out EngineInfo engine_info);
+	[CCode (cname = "gpgme_get_engine_info")]
+	public GPGError.Error get_engine_info(out EngineInfo engine_info);
 
 	/**
 	 * Return the error string for ERR in the user-supplied buffer BUF
@@ -1213,12 +1214,12 @@ namespace GPG {
 	 * fits into the buffer. Returns Error Status Code.
 	 */
 	[CCode (cname = "gpgme_strerror_r")]
-	public int strerror_r(GPGError.ErrorCode err, uint8[] buf);
+	public int strerror_r(GPGError.Error err, uint8[] buf);
 
 	/**
 	 * Like strerror_r, but returns a pointer to the string. This method
 	 * is not thread safe!
 	 */
 	[CCode (cname = "gpgme_strerror")]
-	public unowned string strerror(GPGError.ErrorCode err);
+	public unowned string strerror(GPGError.Error err);
 }
