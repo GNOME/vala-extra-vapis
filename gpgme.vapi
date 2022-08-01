@@ -92,9 +92,9 @@ namespace GPG {
 		public string issuer_name;
 
 		/**
-		 * If protocol is CMS, this string contains the issuer's ID
+		 * If protocol is CMS, this string contains the chain ID.
 		 */
-		public string issuer_id;
+		public string chain_id;
 
 		/**
 		 * If protocol is OpenPGP, this field contains the owner trust level
@@ -204,7 +204,7 @@ namespace GPG {
 		/**
 		 * The serial number of the smartcard holding this key or null
 		 */
-		string? cardnumber;
+		string? card_number;
 	}
 
 	/**
@@ -216,7 +216,7 @@ namespace GPG {
 		 * The next signature from the list
 		 */
 		KeySig* next;
-		bool invoked;
+		bool revoked;
 		bool expired;
 		bool invalid;
 		bool exportable;
@@ -313,7 +313,7 @@ namespace GPG {
 		string unsupported_algorithm;
 		bool wrong_key_usage;
 		Recipient recipients;
-		string filename;
+		string file_name;
 	}
 
 	/**
@@ -415,7 +415,7 @@ namespace GPG {
 		/**
 		 * The mailbox from the PKA information or null
 		 */
-		string? pka_adress;
+		string? pka_address;
 	}
 
 	/**
@@ -553,9 +553,9 @@ namespace GPG {
 		SHA384,
 		SHA512,
 		MD4,
-		MD_CRC32,
-		MD_CRC32_RFC1510,
-		MD_CRC24_RFC2440
+		CRC32,
+		CRC32_RFC1510,
+		CRC24_RFC2440
 	}
 
 	/**
@@ -1202,7 +1202,7 @@ namespace GPG {
 	 * until the next set_engine_info() call.
 	 */
 	[CCode (cname = "gpgme_get_engine_info")]
-	public GPGError.Error get_engine_info(out EngineInfo engine_info);
+	public GPGError.Error get_engine_info(out EngineInfo? engine_info);
 
 	/**
 	 * Return the error string for ERR in the user-supplied buffer BUF
