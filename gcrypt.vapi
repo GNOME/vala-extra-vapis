@@ -537,7 +537,7 @@ namespace GCrypt {
 			CHACHA20;
 
 			[CCode (cname = "gcry_cipher_algo_info")]
-			public Error info (ControlCommand what, ref uchar[] buffer);
+			public Error info (ControlCommand what, [CCode (array_length_type = "size_t")] ref uchar[] buffer);
 			[CCode (cname = "gcry_cipher_algo_name")]
 			public unowned string to_string ();
 			[CCode (cname = "gcry_cipher_map_name")]
@@ -571,13 +571,13 @@ namespace GCrypt {
 			CBC_MAC   /* Enable CBC message auth. code (MAC). */
 		}
 		[Compact]
-		[CCode (cname = "gcry_cipher_hd_t", lower_case_cprefix = "gcry_cipher_", free_function = "gcry_cipher_close")]
+		[CCode (cname = "struct gcry_cipher_handle", lower_case_cprefix = "gcry_cipher_", free_function = "gcry_cipher_close")]
 		public class Cipher {
 			public static Error open (out Cipher cipher, Algorithm algo, Mode mode, Flag flags);
 			public void close ();
 			[CCode (cname = "gcry_cipher_ctl")]
-			public Error control (ControlCommand cmd, uchar[] buffer);
-			public Error info (ControlCommand what, ref uchar[] buffer);
+			public Error control (ControlCommand cmd, [CCode (array_length_type = "size_t")] uchar[] buffer);
+			public Error info (ControlCommand what, [CCode (array_length_type = "size_t")] ref uchar[] buffer);
 
 			public Error encrypt (uchar[] out_buffer, uchar[] in_buffer);
 			public Error decrypt (uchar[] out_buffer, uchar[] in_buffer);
@@ -628,7 +628,7 @@ namespace GCrypt {
 			[CCode (cname = "gcry_md_get_algo_dlen")]
 			public size_t get_digest_length ();
 			[CCode (cname = "gcry_md_algo_info")]
-			public Error info (ControlCommand what, ref uchar[] buffer);
+			public Error info (ControlCommand what, [CCode (array_length_type = "size_t")] ref uchar[] buffer);
 			[CCode (cname = "gcry_md_algo_name")]
 			public unowned string to_string ();
 			[CCode (cname = "gcry_md_map_name")]
@@ -636,7 +636,7 @@ namespace GCrypt {
 			[CCode (cname = "gcry_md_test_algo")]
 			public Error is_available ();
 			[CCode (cname = "gcry_md_get_asnoid")]
-			public Error get_oid (uchar[] buffer);
+			public Error get_oid ([CCode (array_length_type = "size_t")] ref uchar[] buffer);
 		}
 
 		[CCode (cname = "enum gcry_md_flags", cprefix = "GCRY_MD_FLAG_")]
@@ -652,8 +652,8 @@ namespace GCrypt {
 		[CCode (instance_pos = -1)]
 		public Error copy (out Hash dst);
 		public void reset ();
-		[CCode (cname = "enum gcry_md_ctl")]
-		public Error control (ControlCommand cmd, uchar[] buffer);
+		[CCode (cname = "gcry_md_ctl")]
+		public Error control (ControlCommand cmd, [CCode (array_length_type = "size_t")] uchar[] buffer);
 		public void write (uchar[] buffer);
 		[CCode (array_length = false)]
 		public unowned uchar[] read (Algorithm algo);
@@ -661,7 +661,7 @@ namespace GCrypt {
 		public Algorithm get_algo ();
 		public bool is_enabled (Algorithm algo);
 		public bool is_secure ();
-		public Error info (ControlCommand what, uchar[] buffer);
+		public Error info (ControlCommand what, [CCode (array_length_type = "size_t")] ref uchar[] buffer);
 		[CCode (cname = "gcry_md_setkey")]
 		public Error set_key (uchar[] key_data);
 		public void putc (char c);
@@ -686,7 +686,7 @@ namespace GCrypt {
 		public static Error poll ();
 		[CCode (cname = "gcry_random_bytes", array_length = false)]
 		public static uchar[] random_bytes (size_t nbytes, Level level = Level.VERY_STRONG);
-		[CCode (cname = "gcry_random_bytes_secure")]
+		[CCode (cname = "gcry_random_bytes_secure", array_length = false)]
 		public static uchar[] random_bytes_secure (size_t nbytes, Level level = Level.VERY_STRONG);
 		[CCode (cname = "gcry_create_nonce")]
 		public static void nonce (uchar[] buffer);
@@ -716,7 +716,7 @@ namespace GCrypt {
 		public MPI copy ();
 		public void set (MPI u);
 		public void set_ui (ulong u);
-		public void swap ();
+		public void swap (MPI b);
 		public int cmp (MPI v);
 		public int cmp_ui (ulong v);
 
@@ -724,19 +724,19 @@ namespace GCrypt {
 		[CCode (instance_pos = -1)]
 		public Error print (MPI.Format format, [CCode (array_length = false)] uchar[] buffer, size_t buflen, out size_t nwritter);
 		[CCode (instance_pos = -1)]
-		public Error aprint (MPI.Format format, out uchar[] buffer);
+		public Error aprint (MPI.Format format, [CCode (array_length_type = "size_t")] out uchar[] buffer);
 
 		public void add (MPI u, MPI v);
 		public void add_ui (MPI u, ulong v);
 		public void addm (MPI u, MPI v, MPI m);
 		public void sub (MPI u, MPI v);
-		public void sub_ui (MPI u, MPI v);
+		public void sub_ui (MPI u, ulong v);
 		public void subm (MPI u, MPI v, MPI m);
 		public void mul (MPI u, MPI v);
 		public void mul_ui (MPI u, ulong v);
 		public void mulm (MPI u, MPI v, MPI m);
 		public void mul_2exp (MPI u, ulong cnt);
-		public void div (MPI q, MPI r, MPI dividend, MPI divisor, int round);
+		public void div (MPI r, MPI dividend, MPI divisor, int round);
 		public void mod (MPI dividend, MPI divisor);
 		public void powm (MPI b, MPI e, MPI m);
 		public int gcd (MPI a, MPI b);
@@ -758,7 +758,7 @@ namespace GCrypt {
 
 	[Compact, CCode (cname = "struct gcry_sexp", free_function = "gcry_sexp_release")]
 	public class SExp {
-		[CCode (cprefix = "GCRYSEXP_FMT_")]
+		[CCode (cname = "int", cprefix = "GCRYSEXP_FMT_")]
 		public enum Format {
 			DEFAULT,
 			CANON,
@@ -777,6 +777,7 @@ namespace GCrypt {
 		public SExp? nth (int number);
 		public SExp? car ();
 		public SExp? cdr ();
+		[CCode (array_length_type = "size_t")]
 		public unowned char[] nth_data (int number);
 		public gcry_string nth_string (int number);
 		public MPI nth_mpi (int number, MPI.Format mpifmt);
@@ -812,7 +813,7 @@ namespace GCrypt {
 
 	[CCode (lower_case_cprefix = "gcry_kdf_")]
 	namespace KeyDerivation {
-		[CCode (cname = "gcry_kdf_algos", cprefix = "GCRY_KDF_", has_type_id = false)]
+		[CCode (cname = "enum gcry_kdf_algos", cprefix = "GCRY_KDF_", has_type_id = false)]
 		public enum Algorithm {
 			NONE,
 			SIMPLE_S2K,
