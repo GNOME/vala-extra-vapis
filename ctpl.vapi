@@ -67,7 +67,7 @@ namespace Ctpl {
 	[CCode (ref_function = "ctpl_output_stream_ref", unref_function = "ctpl_output_stream_unref", cheader_filename = "ctpl/ctpl.h")]
 	public class OutputStream {
 		[CCode (cname="ctpl_output_stream_new")]
-		public static OutputStream (GLib.OutputStream stream);
+		public OutputStream (GLib.OutputStream stream);
 		public bool put_c (char c) throws GLib.Error;
 		public bool write (string data, ssize_t length) throws GLib.Error;
 	}

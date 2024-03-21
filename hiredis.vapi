@@ -58,7 +58,7 @@ namespace Redis {
     [CCode(cname = "struct timeval")]
     public struct TimeVal {
         [CCode(cname = "*")]
-        public static TimeVal(Posix.timeval v);
+        public TimeVal(Posix.timeval v);
     }
 
     [CCode(cname = "redisConnectionType", cprefix = "REDIS_CONN_", has_type_id = false)]
