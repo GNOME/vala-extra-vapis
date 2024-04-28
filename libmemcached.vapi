@@ -247,7 +247,7 @@ namespace Memcached {
     public void stat_free (Memcached.Stat memc_stat);
     public Memcached.Stat? stat (string args, out Memcached.ReturnCode error);
     public string stat_get_value (Memcached.Stat memc_stat, string key, out Memcached.ReturnCode error);
-    [CCode (array_null_terminated = true)]
+    [CCode (array_length = false, array_null_terminated = true)]
     public string[] stat_get_keys (Memcached.Stat memc_stat, out Memcached.ReturnCode error);
     public Memcached.ReturnCode stat_execute (string args, Memcached.StatCallback func);
 

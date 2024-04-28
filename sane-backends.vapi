@@ -114,7 +114,7 @@ namespace Sane
         public Capability cap;
         public ConstraintType constraint_type;
 
-        [CCode(array_null_terminated = true, cname="constraint.string_list")]
+        [CCode (array_length = false, array_null_terminated = true, cname="constraint.string_list")]
         public unowned StringConst[] string_list;
 
         [CCode(array_length = false, cname="constraint.word_list")] // Array length is first element of the array

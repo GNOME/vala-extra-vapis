@@ -104,13 +104,13 @@ namespace GPG {
 		/**
 		 * The key's subkeys
 		 */
-		[CCode(array_null_terminated = true)]
+		[CCode (array_length = false, array_null_terminated = true)]
 		public SubKey[] subkeys;
 
 		/**
 		 * The key's user ids
 		 */
-		[CCode(array_null_terminated = true)]
+		[CCode (array_length = false, array_null_terminated = true)]
 		public UserID[] uids;
 
 		public KeylistMode keylist_mode;

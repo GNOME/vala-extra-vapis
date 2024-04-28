@@ -397,7 +397,7 @@ namespace Fp {
          *                          from {@link VerifyResult}
          */
         [CCode (cname = "fp_identify_finger_img")]
-        public int identify_finger ([CCode (array_null_terminated = true)] PrintData[] print_gallery, out size_t match_offset, out Img? img = null);
+        public int identify_finger ([CCode (array_length = false, array_null_terminated = true)] PrintData[] print_gallery, out size_t match_offset, out Img? img = null);
 
         [CCode (cname = "fp_enroll_stage_cb")]
         public delegate void EnrollStageCallback(Dev dev, int result, owned PrintData? print, owned Img? img);
